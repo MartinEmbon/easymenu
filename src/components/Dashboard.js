@@ -3,6 +3,7 @@ import CreateCategory from './CreateCategory';
 import AddDishes from './AddDishes';
 import EditDishes from './EditDishes';
 import GeneralInfo from './GeneralInfo';
+import logo from '../assets/images/logoEMpng.png';
 
 import "../Dashboards.css"
 const Dashboard = () => {
@@ -28,11 +29,14 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="navbar">
+      <div className="navbar-logo">
+          <img src={logo} alt="Logo EasyMenu" />
+        </div>
         <button className={`nav-btn ${activeTab === 'create' ? 'active' : ''}`} onClick={() => setActiveTab('create')}>Crear Categoría</button>
-        <button className={`nav-btn ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>Agregar Platos</button>
-        <button className={`nav-btn ${activeTab === 'edit' ? 'active' : ''}`} onClick={() => setActiveTab('edit')}>Editar Platos</button>
+        <button className={`nav-btn ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>Agregar Producto</button>
+        <button className={`nav-btn ${activeTab === 'edit' ? 'active' : ''}`} onClick={() => setActiveTab('edit')}>Editar Producto</button>
         <button className={`nav-btn ${activeTab === 'info' ? 'active' : ''}`} onClick={() => setActiveTab('info')}>
-  Info General
+  Info Establecimiento
 </button>
 
         <button className="logout-btn" onClick={handleLogout}>Salir</button>

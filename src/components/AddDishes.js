@@ -4,9 +4,7 @@ import axios from 'axios';
 const AddDishes = ({ email, clienteId }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-//   const [items, setItems] = useState([{ name: '', description: '', price: '', image: '' }]);
   const [items, setItems] = useState([{ name: '', description: '', price: '', imageFile: null, imageUrl: '' }]);
-
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -17,11 +15,9 @@ const AddDishes = ({ email, clienteId }) => {
         const res = await axios.get("https://list-categories-336444799661.us-central1.run.app", {
           params: { email }
         });
-        // Log the response data to check structure
         console.log('Fetched Categories:', res.data);
-  
-        const categories = res.data.categories || [];  // Default to empty array if no categories
-        console.log('Processed Categories:', categories);  // Check if the categories are being processed correctly
+        const categories = res.data.categories || [];  
+        console.log('Processed Categories:', categories);
         setCategories(categories);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -30,8 +26,6 @@ const AddDishes = ({ email, clienteId }) => {
   
     fetchMenu();
   }, [email]);
-  
-  
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...items];
@@ -40,7 +34,12 @@ const AddDishes = ({ email, clienteId }) => {
   };
 
   const addItem = () => {
-    setItems([...items, { name: '', description: '', price: '', image: '' }]);
+    setItems([...items, { name: '', description: '', price: '', imageFile: null, imageUrl: '' }]);
+  };
+
+  const removeItem = (index) => {
+    const updatedItems = items.filter((_, idx) => idx !== index);
+    setItems(updatedItems);
   };
 
   const handleSubmit = async () => {
@@ -53,7 +52,6 @@ const AddDishes = ({ email, clienteId }) => {
     setMessage('');
   
     try {
-      // Upload all images and update their public URLs
       const updatedItems = await Promise.all(
         items.map(async (item) => {
           if (item.imageFile) {
@@ -64,7 +62,6 @@ const AddDishes = ({ email, clienteId }) => {
         })
       );
   
-      // Now send the items with updated image URLs
       await axios.post("https://register-dishes-336444799661.us-central1.run.app", {
         clienteId,
         category: {
@@ -73,7 +70,7 @@ const AddDishes = ({ email, clienteId }) => {
         }
       });
   
-      setMessage('Platos guardados con éxito ✅');
+      setMessage('Producto creados con éxito ✅');
       setItems([{ name: '', description: '', price: '', imageFile: null, image: '' }]);
     } catch (error) {
       console.error(error);
@@ -115,11 +112,10 @@ const AddDishes = ({ email, clienteId }) => {
       throw error;
     }
   };
-  
 
   return (
     <div className="dish-form-container">
-      <h2 className="form-title">Agregar Platos</h2>
+      <h2 className="form-title">Agregar Producto</h2>
 
       <select
         className="input"
@@ -137,21 +133,21 @@ const AddDishes = ({ email, clienteId }) => {
           <input type="text" className="input" placeholder="Nombre del plato" value={item.name} onChange={e => handleItemChange(index, 'name', e.target.value)} />
           <input type="text" className="input" placeholder="Descripción" value={item.description} onChange={e => handleItemChange(index, 'description', e.target.value)} />
           <input type="number" className="input" placeholder="Precio" value={item.price} onChange={e => handleItemChange(index, 'price', e.target.value)} />
-          
           <input
-  type="file"
-  className="input"
-  accept="image/*"
-  onChange={e => handleImageChange(index, e.target.files[0])}
-/>
-
-          
-          <input type="text" className="input" placeholder="URL de la imagen" value={item.image} onChange={e => handleItemChange(index, 'image', e.target.value)} />
+            type="file"
+            className="input"
+            accept="image/*"
+            onChange={e => handleImageChange(index, e.target.files[0])}
+          />
+          {/* Remove Button */}
+          <button type="button" className="remove-item-btn" onClick={() => removeItem(index)}>
+            ❌
+          </button>
         </div>
       ))}
-      <button className="admin-btn" onClick={addItem}>Agregar otro plato</button>
+      <button className="admin-btn" onClick={addItem}>Agregar otro producto</button>
       <button className="admin-btn" onClick={handleSubmit} disabled={loading}>
-        {loading ? 'Guardando...' : 'Guardar Platos'}
+        {loading ? 'Guardando...' : 'Crear Produto'}
       </button>
       {message && <p className="form-message">{message}</p>}
     </div>

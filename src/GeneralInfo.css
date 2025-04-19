@@ -1,0 +1,133 @@
+/* Container for the entire form */
+.general-info-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title of the form */
+  .general-info-form-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Success and loading messages */
+  .general-info-message {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .general-info-success {
+    color: green;
+  }
+  
+  .general-info-error {
+    color: red;
+  }
+  
+  /* Input fields */
+  .general-info-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border 0.3s;
+  }
+  
+  .general-info-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .general-info-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+  }
+  
+  /* Time input field styling */
+  input[type="text"]::placeholder {
+    color: #aaa;
+  }
+  
+  /* Button */
+  .general-info-save-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .general-info-save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .general-info-save-button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .general-info-container {
+      padding: 15px;
+    }
+  
+    .general-info-form-title {
+      font-size: 20px;
+    }
+  
+    .general-info-input {
+      padding: 8px;
+    }
+  
+    .general-info-save-button {
+      padding: 10px 15px;
+    }
+  }
+  
+  /* Responsive layout for the hours section */
+  h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #444;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  /* For smaller screens */
+  @media (max-width: 480px) {
+    .general-info-form-title {
+      font-size: 18px;
+    }
+  
+    .general-info-input {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }
+  

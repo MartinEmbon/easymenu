@@ -3,7 +3,6 @@ import axios from 'axios';
 import AdminLoginModal from './AdminLoginModal';
 import { useParams } from 'react-router-dom';
 import "../Footer.css"
-
 const Footer = ({ clienteId: propClienteId }) => {
     const { clienteId: urlClienteId } = useParams();
     const clienteId = propClienteId || urlClienteId;
@@ -26,13 +25,14 @@ const Footer = ({ clienteId: propClienteId }) => {
 
     useEffect(() => {
         if (hoursRef.current) {
-            if (showAllHours) {
-                setMaxHeight(`${hoursRef.current.scrollHeight}px`);
-            } else {
-                setMaxHeight('30px');
-            }
+          if (showAllHours) {
+            setMaxHeight(`${hoursRef.current.scrollHeight}px`);
+          } else {
+            setMaxHeight('30px');
+          }
         }
-    }, [showAllHours, contactInfo.hours]);
+      }, [showAllHours, contactInfo.hours]);
+
 
     useEffect(() => {
         const fetchContactInfo = async () => {
@@ -85,55 +85,51 @@ const Footer = ({ clienteId: propClienteId }) => {
                     <p>{error}</p>
                 ) : (
                     <>
-                        {contactInfo.address && (
-                            <p>
-                                <i className="fa fa-map-marker" style={{ marginRight: '8px' }}></i>
-                                Dirección: {contactInfo.address}
-                            </p>
-                        )}
-                        {contactInfo.email && (
-                            <p>
-                                <i className="fa fa-envelope" style={{ marginRight: '8px' }}></i>
-                                Contacto: <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
-                            </p>
-                        )}
-                        {contactInfo.phone && (
-                            <p>
-                                <i className="fa fa-phone" style={{ marginRight: '8px' }}></i>
-                                Teléfono: <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a>
-                            </p>
-                        )}
+                        <p>
+                            <i className="fa fa-map-marker" style={{ marginRight: '8px' }}></i>
+                            Dirección: {contactInfo.address}
+                        </p>
+                        <p>
+                            <i className="fa fa-envelope" style={{ marginRight: '8px' }}></i>
+                            Contacto: <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                        </p>
+                        <p>
+                            <i className="fa fa-phone" style={{ marginRight: '8px' }}></i>
+                            Teléfono: <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a>
+                        </p>
                         {contactInfo.hours && Object.values(contactInfo.hours).some(h => h) && (
-                            <div className="footer-hours">
-                                <h4>
-                                    <i className="fa fa-clock-o" style={{ marginRight: '6px' }}></i>Horarios de atención:
-                                </h4>
+  <div className="footer-hours">
+    <h4>
+      <i className="fa fa-clock-o" style={{ marginRight: '6px' }}></i>Horarios de atención:
+    </h4>
 
-                                <ul
-                                    className="hours-list"
-                                    ref={hoursRef}
-                                    style={{
-                                        maxHeight,
-                                        overflow: 'hidden',
-                                        transition: 'max-height 0.4s ease-in-out',
-                                    }}
-                                >
-                                    {Object.entries(contactInfo.hours)
-                                        .filter(([_, h]) => h)
-                                        .map(([day, hours]) => (
-                                            <li key={day}>
-                                                {day.charAt(0).toUpperCase() + day.slice(1)}: {hours}
-                                            </li>
-                                        ))}
-                                </ul>
+    <ul
+      className="hours-list"
+      ref={hoursRef}
+      style={{
+        maxHeight,
+        overflow: 'hidden',
+        transition: 'max-height 0.4s ease-in-out',
+      }}
+    >
+      {Object.entries(contactInfo.hours)
+        .filter(([_, h]) => h)
+        .map(([day, hours]) => (
+          <li key={day}>
+            {day.charAt(0).toUpperCase() + day.slice(1)}: {hours}
+          </li>
+        ))}
+    </ul>
 
-                                {Object.values(contactInfo.hours).filter(h => h).length > 1 && (
-                                    <button className="toggle-hours-btn" onClick={() => setShowAllHours(!showAllHours)}>
-                                        <i className={`fa ${showAllHours ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-                                    </button>
-                                )}
-                            </div>
-                        )}
+    {Object.values(contactInfo.hours).filter(h => h).length > 1 && (
+      <button className="toggle-hours-btn" onClick={() => setShowAllHours(!showAllHours)}>
+        <i className={`fa ${showAllHours ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+      </button>
+    )}
+  </div>
+)}
+
+
                         <div className="social-links">
                             {contactInfo.instagram && (
                                 <a
@@ -142,6 +138,7 @@ const Footer = ({ clienteId: propClienteId }) => {
                                     rel="noopener noreferrer"
                                     aria-label="Instagram"
                                 >
+
                                     <i className="fa-brands fa-instagram" style={{ marginRight: '10px', fontSize: '1.2rem' }}></i>
                                 </a>
                             )}
@@ -164,13 +161,13 @@ const Footer = ({ clienteId: propClienteId }) => {
                 </button>
 
                 <div className="footer-easymenu">
-                    <p>
-                        ¿Querés tener tu carta digital como esta? Visitá&nbsp;
-                        <a href="https://easymenu.com" target="_blank" rel="noopener noreferrer">
-                            easymenu.com
-                        </a>
-                    </p>
-                </div>
+  <p>
+    ¿Querés tener tu carta digital como esta? Visitá&nbsp;
+    <a href="https://easymenu.com" target="_blank" rel="noopener noreferrer">
+      easymenu.com
+    </a>
+  </p>
+</div>
 
                 <AdminLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
             </div>

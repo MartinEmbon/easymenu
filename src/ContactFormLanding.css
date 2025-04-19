@@ -1,0 +1,127 @@
+
+  /* Contact Form Styles */
+  .contact-container {
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  .contact-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #9b51e0;
+    font-weight: 600;
+  }
+  
+  /* .contact-container p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555; 
+  } */
+  
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333; /* Color de las etiquetas */
+    font-size: 1rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc; /* Después decidir color border*/
+  }
+
+  .contact-form button {
+    padding: 10px 20px;
+    background-color: #9b51e0; /* Color principal */
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+
+    font-weight: bold;
+    padding: 12px 25px;
+  }
+  
+  .contact-form button:hover {
+    background-color: #a263e4; /* Hover effect */
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .contact-container {
+      padding: 20px;
+    }
+  
+    .contact-container h2 {
+      font-size: 1.5rem;
+    }
+  
+    .contact-container p {
+      font-size: 1rem;
+    }
+  
+    .contact-form {
+      padding: 0 20px;
+    }
+  
+    .contact-form label {
+      font-size: 0.9rem;
+    }
+  
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      font-size: 0.9rem;
+    }
+  
+    .contact-form button {
+      font-size: 0.9rem;
+    }
+
+  }
+  
+  /* Extra Small Mobile Styles */
+  @media (max-width: 480px) { 
+    .contact-container h2 {
+      font-size: 1.2rem;
+    }
+  
+    .contact-container p {
+      font-size: 0.9rem;
+    }
+  
+    .contact-form label {
+      font-size: 0.8rem;
+    }
+  
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      font-size: 0.8rem;
+    }
+  
+    .contact-form button {
+      font-size: 0.8rem;
+    }
+  }
+  
+
+  

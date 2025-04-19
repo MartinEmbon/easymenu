@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "../GeneralInfo.css"
+
 const GeneralInfo = ({ email, clienteId }) => {
   const [info, setInfo] = useState({
     address: '',
@@ -76,78 +76,43 @@ const GeneralInfo = ({ email, clienteId }) => {
   };
 
   return (
-    <div className="general-info-container">
-      <h2 className="general-info-form-title">Información General</h2>
-  
-      {loading && <p className="general-info-message">Cargando...</p>}
-      {success && <p className={`general-info-message ${success.includes('Error') ? 'general-info-error' : 'general-info-success'}`}>{success}</p>}
-  
-      <label className="general-info-label">Dirección:</label>
-      <input
-        type="text"
-        name="address"
-        value={info.address}
-        onChange={handleChange}
-        className="general-info-input"
-      />
-  
-      <label className="general-info-label">Teléfono:</label>
-      <input
-        type="text"
-        name="phone"
-        value={info.phone}
-        onChange={handleChange}
-        className="general-info-input"
-      />
-  
-      <label className="general-info-label">Email:</label>
-      <input
-        type="email"
-        name="email"
-        value={info.email}
-        onChange={handleChange}
-        className="general-info-input"
-      />
-  
-      <label className="general-info-label">Instagram:</label>
-      <input
-        type="text"
-        name="instagram"
-        value={info.instagram}
-        onChange={handleChange}
-        className="general-info-input"
-      />
-  
-      <label className="general-info-label">Facebook:</label>
-      <input
-        type="text"
-        name="facebook"
-        value={info.facebook}
-        onChange={handleChange}
-        className="general-info-input"
-      />
-  
+    <div className="dish-form-container">
+      <h2 className="form-title">Información General</h2>
+
+      {loading && <p>Cargando...</p>}
+      {success && <p>{success}</p>}
+
+      <label>Dirección:</label>
+      <input type="text" name="address" value={info.address} onChange={handleChange} className="edit-input" />
+
+      <label>Teléfono:</label>
+      <input type="text" name="phone" value={info.phone} onChange={handleChange} className="edit-input" />
+
+      <label>Email:</label>
+      <input type="email" name="email" value={info.email} onChange={handleChange} className="edit-input" />
+
+      <label>Instagram:</label>
+      <input type="text" name="instagram" value={info.instagram} onChange={handleChange} className="edit-input" />
+
+      <label>Facebook:</label>
+      <input type="text" name="facebook" value={info.facebook} onChange={handleChange} className="edit-input" />
+
       <h3>Horarios de Atención</h3>
       {Object.keys(info.hours).map((day) => (
         <div key={day}>
-          <label className="general-info-label">{day.charAt(0).toUpperCase() + day.slice(1)}:</label>
+          <label>{day.charAt(0).toUpperCase() + day.slice(1)}:</label>
           <input
             type="text"
             name={day}
             value={info.hours[day]}
             onChange={handleChange}
-            className="general-info-input"
+            className="edit-input"
             placeholder="Ej: 9:00 - 18:00"
           />
         </div>
       ))}
-  
-      <button
-        className="general-info-save-button"
-        onClick={handleSave}
-      >
-        Guardar Información
-      </button>
+
+      <button className="save-button" onClick={handleSave}>Guardar Información</button>
     </div>
   );
 };
