@@ -1,0 +1,85 @@
+.footer {
+    margin-top: 2rem;
+    padding: 2rem 1rem;
+    background-color: #f0f0f0;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #444;
+    border-top: 1px solid #ccc;
+  }
+  
+  .footer a {
+    color: #9b51e0;
+    text-decoration: none;
+  }
+  /* Ya definido anteriormente */
+  .footer {
+    background-color: #f0f0f0;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #444;
+    color: white;
+    border-top: 1px solid #ccc;
+    background-color: #282938;
+  }
+
+  .footer-hours {
+    margin-top: 1rem;
+  }
+  .footer-hours ul {
+    padding-left: 1rem;
+    list-style-type: none;
+  }
+  .footer-hours li {
+    margin: 0.25rem 0;
+  }
+  .footer-hours {
+  margin-top: 1rem;
+}
+
+.hours-list {
+  max-height: 35px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  margin-top: 0;
+}
+
+.hours-list.expanded {
+  max-height: 500px; /* big enough for all items */
+}
+/* 
+.toggle-hours-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  color: #555;
+  transition: transform 0.2s ease;
+}
+
+.toggle-hours-btn:hover {
+  color: #000;
+  transform: scale(1.1);
+} */
+
+
+.toggle-hours-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.3rem;
+    font-size: 1.1rem;
+    color: #555;
+    transition: transform 0.2s ease;
+  }
+  
+  .toggle-hours-btn:hover {
+    color: #000;
+    transform: scale(1.1);
+  }
+  
+  .fa-chevron-down, .fa-chevron-up{
+    color: white;
+  }

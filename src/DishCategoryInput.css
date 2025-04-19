@@ -1,0 +1,56 @@
+.dish-form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    font-family: 'Helvetica Neue', sans-serif;
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .item-form {
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .form-message {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #9b51e0;
+  }
+  
+  .admin-btn {
+    background-color: #9b51e0;
+    color: white;
+    padding: 10px 16px;
+    margin-right: 1rem;
+    border: none;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .admin-btn:hover {
+    background-color: #7a3ec9;
+  }
+  

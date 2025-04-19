@@ -1,0 +1,260 @@
+/* Global container */
+.menu-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+    font-family: 'Helvetica Neue', sans-serif;
+    background-color: #fff;
+  }
+  
+  /* Title */
+  .menu-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  /* Category wrapper */
+  .menu-category {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 1rem;
+  }
+  
+  /* Toggle button */
+  .category-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #444;
+    transition: background 0.3s ease;
+  }
+  
+  .category-toggle:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Arrow styles */
+  .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .arrow.open {
+    transform: rotate(180deg);
+  }
+  
+  /* Expand/collapse section */
+  .category-dishes {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.4s ease-in-out;
+    padding: 0 1rem;
+  }
+  
+  .category-dishes.expanded {
+    max-height: 1000px;
+    padding: 0.5rem 1rem 1rem;
+  }
+  
+  /* Dish card */
+  .dish-card {
+    margin-bottom: 1rem;
+  }
+  
+  .dish-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dish-card h4 {
+    font-size: 1rem;
+    margin: 0;
+    color: #222;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #000;
+    font-size: 0.95rem;
+  }
+  
+  .dish-description {
+    margin: 0.25rem 0 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  /* Mobile first */
+  @media (max-width: 480px) {
+    .menu-title {
+      font-size: 1.5rem;
+    }
+  
+    .category-toggle {
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+    }
+  
+    .dish-card h4 {
+      font-size: 0.95rem;
+    }
+  
+    .dish-description {
+      font-size: 0.85rem;
+    }
+  }
+  
+  .restaurant-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #9b51e0;
+    margin-bottom: 0.3rem;
+  }
+  
+  .restaurant-info p {
+    margin: 2px 0;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  @media (max-width: 480px) {
+    .restaurant-name {
+      font-size: 1.2rem;
+    }
+  
+    .restaurant-info p {
+      font-size: 0.85rem;
+  }
+}
+
+  .search-bar {
+    padding: 1rem;
+    text-align: center;
+    background-color: #fafafa;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 480px) {
+    
+      .search-bar input {
+    width: calc(100% - 22px) ;
+  }
+}
+
+
+  .menu-item {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .menu-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .item-info {
+    flex-grow: 1;
+  }
+  
+  .item-info h4 {
+    margin: 0 0 4px 0;
+  }
+  
+  .price {
+    font-weight: bold;
+    color: #9b51e0;
+  }
+  
+  .promotions {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f7f4fa;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .admin-btn {
+    margin-top: 1rem;
+    background-color: #9b51e0;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .admin-btn:hover {
+    background-color: #7a3ec9;
+  }
+ 
+  
+  
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    justify-content: space-between;
+  }
+  
+  .menu-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  
+  .item-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .item-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .item-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .price {
+    margin-left: 1rem;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #9b51e0;
+    font-size: 1rem;
+    align-self: flex-start;
+  }
+  

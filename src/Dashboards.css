@@ -1,0 +1,40 @@
+.dashboard-container {
+    padding: 20px;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-btn, .logout-btn {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-btn.active {
+    background-color: #007BFF;
+    color: white;
+  }
+  
+  .logout-btn {
+    margin-left: auto;  /* Align the logout button to the far right */
+    background-color: #FF4136;
+    color: white;
+  }
+  
+  .nav-btn:hover, .logout-btn:hover {
+    background-color: #C0392B;
+  }
+  
+  .logout-btn:hover {
+    background-color: #C0392B;
+  }
+  

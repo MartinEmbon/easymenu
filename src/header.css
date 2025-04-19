@@ -1,0 +1,60 @@
+/* header.css */
+
+.menu-header {
+  background-color: #f8f4fc;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding: 1.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+}
+
+.logo-container {
+  padding:  0;
+}
+
+.restaurant-logo {
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.restaurant-info {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.restaurant-info p {
+  margin: 0.25rem 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.restaurant-info h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.restaurant-banner img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  max-height: 220px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .restaurant-info p {
+    font-size: 0.85rem;
+  }
+
+  .restaurant-info h1 {
+    font-size: 1.2rem;
+  }
+}
