@@ -159,6 +159,16 @@ const Footer = ({ clienteId: propClienteId }) => {
                 <button className="admin-btn" onClick={() => setShowLoginModal(true)}>
                     Acceder como admin
                 </button>
+
+                <div className="footer-easymenu">
+  <p>
+    ¿Querés tener tu carta digital como esta? Visitá&nbsp;
+    <a href="https://easymenu.com" target="_blank" rel="noopener noreferrer">
+      easymenu.com
+    </a>
+  </p>
+</div>
+
                 <AdminLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
             </div>
         </footer>

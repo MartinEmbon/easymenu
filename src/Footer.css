@@ -83,3 +83,25 @@
   .fa-chevron-down, .fa-chevron-up{
     color: white;
   }
+  .footer-easymenu {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid white;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #666;
+  }
+  
+  .footer-easymenu p {
+    color: white;
+  }
+  .footer-easymenu a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .footer-easymenu a:hover {
+    text-decoration: underline;
+  }
+  
