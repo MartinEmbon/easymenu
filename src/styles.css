@@ -21,12 +21,15 @@
   .menu-category {
 
     border-bottom: 1px solid #eee;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     background-color: #f9f9f9;  /* Light background for contrast */
     border-radius: 8px;
-    padding: 10px;
+   
     
   }
+
+  .menu-category .accordion-button h2{
+margin: .7rem 0;  }
   
   /* Toggle button */
   .category-toggle {
@@ -350,6 +353,7 @@
   
   .accordion-button.expanded h2 {
     color: white; /* or whatever highlight color you prefer */
+  
   }
 
   

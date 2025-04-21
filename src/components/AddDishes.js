@@ -74,7 +74,7 @@ const AddDishes = () => {
         }
       });
   
-      setMessage('Producto creados con éxito ✅');
+      setMessage('Producto creado con éxito ✅');
       setItems([{ name: '', description: '', price: '', imageFile: null, image: '' }]);
     } catch (error) {
       console.error(error);

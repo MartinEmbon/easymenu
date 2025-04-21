@@ -198,7 +198,7 @@ return (
 
                                 <div className="edit-fields">
                                     <div>
-                                        <strong>Nombre actualizado: {item.name}</strong>
+                                    <span> <strong>Nombre actualizado: {item.name}</strong></span>
                                         <i
                                             className="fas fa-pencil-alt edit-icon"
                                             onClick={() => handleEditClick(catIndex, itemIndex, 'name', item.name)}

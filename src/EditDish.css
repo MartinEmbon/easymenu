@@ -113,3 +113,22 @@
     color: darkred;
   }
   
+
+  .edit-fields > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  
+  .edit-fields .edit-icon {
+    margin-left: 12px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+  }
+  
+  .edit-fields .edit-icon:hover {
+    color: #000;
+  }
+  

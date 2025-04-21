@@ -45,23 +45,28 @@
     margin-top: 20px;
   }
   
-  .category-list {
-    list-style-type: none;
-    padding: 0;
-  }
   
   .category-item {
+    list-style-type: none;
+    padding: 0;
     background-color: #f0f0f0;
     margin: 5px 0;
-    padding: 10px;
+    
     border-radius: 5px;
-  }
-  .category-item {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
   }
+
+  
   
   .edit-btn, .delete-btn {
     background-color: #9b51e0;
@@ -107,5 +112,63 @@
   
   .admin-btn {
     /* Your existing button styles */
+  }
+  
+
+  .category-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    margin-bottom: 10px;
+  }
+  
+  .category-item input[type="checkbox"] {
+    flex-shrink: 0;
+  }
+  
+  .category-name {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .category-suggestion {
+    width: 120px;
+    color: green;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  
+  .category-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    background-color: #9b51e0;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .edit-btn:hover {
+    background-color: #7a3ec9;
+  }
+  
+  .delete-btn {
+    background-color: #e63946;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c5303c;
   }
   

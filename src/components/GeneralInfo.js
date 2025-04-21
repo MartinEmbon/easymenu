@@ -209,19 +209,23 @@ const GeneralInfo = () => {
       />
   
       <h3>Horarios de Atención</h3>
-      {Object.keys(info.hours).map((day) => (
-        <div key={day}>
-          <label className="general-info-label">{day.charAt(0).toUpperCase() + day.slice(1)}:</label>
-          <input
-            type="text"
-            name={day}
-            value={info.hours[day]}
-            onChange={handleChange}
-            className="general-info-input"
-            placeholder="Ej: 9:00 - 18:00"
-          />
-        </div>
-      ))}
+      
+      {['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'].map((day) => (
+  <div key={day}>
+    <label className="general-info-label">
+      {day.charAt(0).toUpperCase() + day.slice(1)}:
+    </label>
+    <input
+      type="text"
+      name={day}
+      value={info.hours?.[day] ?? ''}
+      onChange={handleChange}
+      className="general-info-input"
+      placeholder="Ej: 9:00 - 18:00"
+    />
+  </div>
+))}
+
   
       <button
         className="general-info-save-button"
