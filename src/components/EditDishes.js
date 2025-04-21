@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Modal from './Modal';  // Import the modal component
+import { useOutletContext } from 'react-router-dom';
 
 import "../EditDish.css"
-const EditDishes = ({ email }) => {
+const EditDishes = () => {
     const [categories, setCategories] = useState([]);
     const [editableItem, setEditableItem] = useState(null);  // To track the dish being edited
-    const { clienteId } = useParams(); // e.g. user@email.com
+    // const { clienteId } = useParams(); // e.g. user@email.com
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null); // To track which item to delete
+    const { email } = useOutletContext();        // ✅ get email from context
+    const { clienteId } = useParams();           // ✅ get clienteId from URL params
+      
     useEffect(() => {
         const fetchCategories = async () => {
             if (!email) return;
@@ -26,6 +30,7 @@ const EditDishes = ({ email }) => {
         try {
             const response = await axios.post(
                 "https://us-central1-moonlit-sphinx-400613.cloudfunctions.net/add-cover-photo-album",
+                // "https://add-pictures-336444799661.us-central1.run.app",
                 {
                     filename: file.name,
                     contentType: file.type,

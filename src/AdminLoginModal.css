@@ -4,23 +4,28 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100dvh;
     background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 999;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding: 1rem;
+    box-sizing: border-box;
   }
   
   .modal {
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 16px;
-    width: 90%;
+    width: 100%;
     max-width: 400px;
     position: relative;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    max-height: 95vh;
+    box-sizing: border-box;
   }
   
   .close-btn {
@@ -88,5 +93,25 @@
     font-size: 0.9rem;
     text-align: center;
     margin-top: -0.5rem;
+  }
+  
+  /* Responsive font tweaks (optional) */
+  @media (max-width: 480px) {
+    .modal {
+      padding: 1rem;
+    }
+  
+    h2 {
+      font-size: 1.2rem;
+    }
+  
+    .btn {
+      font-size: 0.95rem;
+    }
+  
+    input[type="email"],
+    input[type="password"] {
+      font-size: 0.95rem;
+    }
   }
   

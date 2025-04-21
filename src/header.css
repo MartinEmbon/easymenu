@@ -12,7 +12,7 @@
   
 }
 
-.logo-container {
+.logo-container-nav {
   padding:  0;
 }
 
@@ -57,4 +57,96 @@
   .restaurant-info h1 {
     font-size: 1.2rem;
   }
+}
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container-nav {
+  margin-bottom: 0;
+}
+
+.restaurant-logo {
+  max-width: 180px;
+  height: auto;
+}
+
+.restaurant-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* .icon {
+  font-size: 1.4rem;
+  color: #333;
+  transition: color 0.2s ease-in-out;
+}
+
+.icon:hover {
+  color: #25D366; 
+} */
+.icon {
+  font-size: 1.1rem;
+  color: #555; /* Neutral base */
+  transition: color 0.3s ease-in-out;
+}
+
+.icon:hover {
+  color: #25D366; /* WhatsApp green — could be used for all icons on hover */
+}
+
+.icon.whatsapp:hover {
+  color: #25D366; /* Keep this if you want brand-specific hover */
+}
+
+.icon.phone:hover {
+  color: #007bff; /* Optional: blue for call */
+}
+
+.icon.share:hover {
+  color: #999;
+}
+
+/*f*/
+.share-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.share-btn:focus {
+  outline: none;
+}
+
+.icon.share {
+  font-size: 1.1rem;
+  color: #555;
+  transition: color 0.3s ease-in-out;
+}
+
+.icon.share:hover {
+  color: #888;
 }

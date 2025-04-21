@@ -3,8 +3,10 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 1rem;
-    font-family: 'Helvetica Neue', sans-serif;
+    /* font-family: 'Helvetica Neue', sans-serif; */
     background-color: #fff;
+    font-family: 'Josefin Sans', sans-serif;
+
   }
   
   /* Title */
@@ -17,8 +19,13 @@
   
   /* Category wrapper */
   .menu-category {
+
     border-bottom: 1px solid #eee;
     margin-bottom: 1rem;
+    background-color: #f9f9f9;  /* Light background for contrast */
+    border-radius: 8px;
+    padding: 10px;
+    
   }
   
   /* Toggle button */
@@ -145,7 +152,7 @@
   }
   
   .search-bar input {
-    width: 100%;
+    width: calc(100%-22px);
     max-width: 500px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -256,5 +263,193 @@
     color: #9b51e0;
     font-size: 1rem;
     align-self: flex-start;
+  }
+  
+  /* Toggle button */
+.category-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #444;
+    transition: background 0.3s ease;
+    line-height: 1.2;
+
+  }
+  
+  .category-toggle:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Arrow styles */
+  .arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .arrow.open {
+    transform: rotate(180deg); /* Flip arrow */
+  }
+  
+  /* Expand/collapse section */
+  .category-dishes {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.4s ease-in-out;
+    padding: 0 1rem;
+  }
+  
+  .category-dishes.expanded {
+    max-height: 1000px;
+    padding: 0.5rem 1rem 1rem;
+  }
+
+  /* Accordion Button Styles */
+.accordion-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1.25rem;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .accordion-button.collapsed {
+    background-color: #ffffff;
+    color: #333;
+    border-bottom-left-radius: calc(0.25rem - 1px);
+    border-bottom-right-radius: calc(0.25rem - 1px);
+    box-shadow: none;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    background-color: #1F2937;
+    color: #fff;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .accordion-button.expanded h2 {
+    color: white; /* or whatever highlight color you prefer */
+  }
+
+  
+  /* Accordion Arrow Icon */
+  .accordion-icon {
+    font-size: 1.25rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+  }
+  
+  .accordion-icon.collapsed {
+    transform: rotate(0deg);
+  }
+  
+  .accordion-icon.expanded {
+    transform: rotate(180deg); /* Rotate the arrow */
+  }
+  
+  /* Dishes Section Styles */
+  .category-dishes {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1rem;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+  }
+  
+  .category-dishes.expanded {
+    max-height: 1000px;
+    padding: 0.5rem 1rem 1rem;
+  }
+  
+  /* Menu Item Styling */
+  .menu-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .menu-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+  
+  .item-info h4 {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #f9f9f9;
+    padding: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  @media (max-width: 480px) {
+    .menu-title {
+      font-size: 1.4rem;
+    }
+  
+    .category-toggle {
+      font-size: 0.95rem;
+      padding: 0.65rem 1rem;
+    }
+  
+    .dish-card h4,
+    .item-info h4 {
+      font-size: 0.9rem;
+    }
+  
+    .dish-description,
+    .item-info p {
+      font-size: 0.8rem;
+    }
+  
+    .restaurant-name {
+      font-size: 1.1rem;
+    }
+  
+    .restaurant-info p {
+      font-size: 0.8rem;
+    }
+  
+    .price {
+      font-size: 0.9rem;
+    }
+  }
+  .item-info p {
+    font-size: 0.85rem; /* or 0.8rem on mobile */
+    color: #777;
+    line-height: 1.4;
   }
   

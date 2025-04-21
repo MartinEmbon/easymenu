@@ -1,48 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, Outlet, useParams, useNavigate, useLocation  } from 'react-router-dom';
+import logo from '../assets/images/logoEMpng.png';
 import CreateCategory from './CreateCategory';
 import AddDishes from './AddDishes';
 import EditDishes from './EditDishes';
 import GeneralInfo from './GeneralInfo';
-import logo from '../assets/images/logoEMpng.png';
+import '../Dashboards.css';
 
-import "../Dashboards.css"
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { clienteId } = useParams(); // get the dynamic param
+const location = useLocation()
   const email = localStorage.getItem('userEmail');
-  const clienteId = localStorage.getItem('clienteId');
-  const [activeTab, setActiveTab] = useState('create');
+  
+  // State for toggling the menu
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    // Clear the localStorage and navigate back to the previous page
     localStorage.removeItem('userEmail');
     localStorage.removeItem('clienteId');
-    window.history.back(); // Navigate to the previous page
+    navigate('/');
   };
 
-  const renderTab = () => {
-    if (activeTab === 'create') return <CreateCategory email={email} clienteId={clienteId} onCategoryCreated={() => setActiveTab('add')} />;
-    if (activeTab === 'add') return <AddDishes email={email} clienteId={clienteId} />;
-    if (activeTab === 'edit') return <EditDishes email={email} />;
-    if (activeTab === 'info') return <GeneralInfo email={email} clienteId={clienteId} />;
-
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
   };
+
+  // Function to close the menu when an item is clicked
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  // 👇 Automatically close menu when route changes
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location]);
 
   return (
     <div className="dashboard-container">
-      <div className="navbar">
-      <div className="navbar-logo">
-          <img src={logo} alt="Logo EasyMenu" />
+      <nav className="navbar">
+        <div className="navbar-header">
+          <img src={logo} alt="Logo EasyMenu" className="navbar-logo" />
         </div>
-        <button className={`nav-btn ${activeTab === 'create' ? 'active' : ''}`} onClick={() => setActiveTab('create')}>Crear Categoría</button>
-        <button className={`nav-btn ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>Agregar Producto</button>
-        <button className={`nav-btn ${activeTab === 'edit' ? 'active' : ''}`} onClick={() => setActiveTab('edit')}>Editar Producto</button>
-        <button className={`nav-btn ${activeTab === 'info' ? 'active' : ''}`} onClick={() => setActiveTab('info')}>
-  Info Establecimiento
-</button>
+        
+        {/* Hamburger Menu */}
+        <div className="hamburger-menu" onClick={toggleMenu}>
+          <div className="bar"></div>
+          <div className="bar"></div>
+          <div className="bar"></div>
+        </div>
 
-        <button className="logout-btn" onClick={handleLogout}>Salir</button>
+        {/* Navbar Menu */}
+        <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
+          <Link to={`/dashboard/${clienteId}/create`} className="nav-link">Crear Categoría</Link>
+          <Link to={`/dashboard/${clienteId}/add`} className="nav-link">Agregar Producto</Link>
+          <Link to={`/dashboard/${clienteId}/edit`} className="nav-link">Editar Producto</Link>
+          <Link to={`/dashboard/${clienteId}/info`} className="nav-link">Info Establecimiento</Link>
+          <button className="logout-btn" onClick={handleLogout}>Salir</button>
+        </div>
+      </nav>
+
+      <div className="dashboard-content">
+        <Outlet context={{ email, clienteId }} />
       </div>
-
-      {renderTab()}
     </div>
   );
 };

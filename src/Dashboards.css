@@ -1,40 +1,118 @@
-.dashboard-container {
-    padding: 20px;
-  }
-  
-  .navbar {
+/* Dashboard Navbar Styles */
+.navbar {
+    background-color: #f9f9f9;
+    padding: 1rem;
     display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: space-between; /* Align logo and hamburger menu in a row */
+    align-items: center; /* Center all items vertically */
+    border-bottom: 1px solid #ddd;
+    position: relative; /* Ensure the navbar itself is the reference for the absolute positioning */
   }
   
-  .nav-btn, .logout-btn {
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  .navbar-header {
+    margin: 0; /* Ensure no margin around the logo */
+  }
+  
+  .navbar-logo {
+    height: 40px;
+  }
+  
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
     cursor: pointer;
-    background-color: #fff;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+    gap: 5px;
+    margin-top: 0; /* Remove any margin */
   }
   
-  .nav-btn.active {
-    background-color: #007BFF;
-    color: white;
+  .hamburger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 5px;
+  }
+  
+  /* Navbar Menu (hidden by default on mobile) */
+  .navbar-menu {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: center;
+    position: static;
+    padding: 0;
+  }
+  
+  .nav-link {
+    color: #333;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #eee;
   }
   
   .logout-btn {
-    margin-left: auto;  /* Align the logout button to the far right */
-    background-color: #FF4136;
+    background-color: #d32f2f;
     color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
   }
   
-  .nav-btn:hover, .logout-btn:hover {
-    background-color: #C0392B;
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    .navbar-menu {
+      display: none; /* Hide the menu by default on mobile */
+      flex-direction: column;
+      align-items: center;
+      background-color: #f9f9f9;
+      padding: 1rem 0;
+      position: absolute;
+      top: 100%; /* Position it right below the navbar */
+      left: 0;
+      width: 100%;
+      max-height: calc(100vh - 60px); /* Set height to be the screen height minus navbar height (adjust as needed) */
+      overflow-y: auto; /* Allow scrolling if content overflows */
+      transition: transform 0.3s ease-in-out;
+      z-index: 1000; /* Ensure the menu overlays the page content */
+      transform: translateY(-100%); /* Initially hide the menu off-screen */
+    }
+  
+    .hamburger-menu {
+      display: flex; /* Show the hamburger menu icon on mobile */
+    }
+  
+    .navbar-menu.open {
+      display: flex;
+      transform: translateY(0); /* Open the menu when the hamburger menu is clicked */
+    }
+  
+    .nav-link,
+    .logout-btn {
+      width: calc(100% - 22px);
+      text-align: center;
+    }
   }
   
-  .logout-btn:hover {
-    background-color: #C0392B;
+  /* Desktop Styles */
+  @media (min-width: 769px) {
+    .navbar-menu {
+      display: flex; /* Show the full menu on desktop */
+      flex-direction: row; /* Display menu items in a horizontal row */
+      position: static; /* Make the menu static on desktop */
+    }
+  
+    .hamburger-menu {
+      display: none; /* Hide the hamburger menu icon on desktop */
+    }
+  
+    .navbar-header,
+    .navbar-logo {
+      display: flex;
+    }
   }
   

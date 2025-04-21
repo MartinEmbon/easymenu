@@ -8,6 +8,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
+
   /* Title of the form */
   .general-info-form-title {
     font-size: 24px;
@@ -110,7 +111,7 @@
   }
   
   input[type="text"] {
-    width: 100%;
+    width: calc(100% - 22px);
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ddd;
@@ -130,4 +131,6 @@
       font-size: 12px;
     }
   }
-  
+  .general-info-input{
+    width: calc(100% - 22px);
+  }

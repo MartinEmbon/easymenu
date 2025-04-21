@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useOutletContext } from 'react-router-dom';
 
-const AddDishes = ({ email, clienteId }) => {
+const AddDishes = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [items, setItems] = useState([{ name: '', description: '', price: '', imageFile: null, imageUrl: '' }]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const { email, clienteId } = useOutletContext();
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -17,6 +19,8 @@ const AddDishes = ({ email, clienteId }) => {
         });
         console.log('Fetched Categories:', res.data);
         const categories = res.data.categories || [];  
+        // const categories = (res.data.categories || []).map(name => ({ name }));
+
         console.log('Processed Categories:', categories);
         setCategories(categories);
       } catch (error) {
@@ -112,12 +116,13 @@ const AddDishes = ({ email, clienteId }) => {
       throw error;
     }
   };
-
+  console.log("categories",categories);
+      console.log("items",items);
   return (
     <div className="dish-form-container">
       <h2 className="form-title">Agregar Producto</h2>
-
-      <select
+    
+      {/* <select
         className="input"
         value={selectedCategory}
         onChange={e => setSelectedCategory(e.target.value)}
@@ -126,8 +131,17 @@ const AddDishes = ({ email, clienteId }) => {
         {categories.map((cat, i) => (
           <option key={i} value={cat}>{cat}</option>
         ))}
-      </select>
-
+      </select> */}
+<select
+  className="input"
+  value={selectedCategory}
+  onChange={e => setSelectedCategory(e.target.value)}
+>
+  <option value="">Seleccioná una categoría</option>
+  {categories.map((cat, i) => (
+    <option key={i} value={cat.name}>{cat.name}</option> 
+  ))}
+</select>
       {items.map((item, index) => (
         <div key={index} className="item-form">
           <input type="text" className="input" placeholder="Nombre del plato" value={item.name} onChange={e => handleItemChange(index, 'name', e.target.value)} />

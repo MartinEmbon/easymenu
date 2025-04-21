@@ -1,28 +1,116 @@
-import logoDJ from "../assets/images/logoDJ-removebg-preview.png"
-import frente_local from "../assets/images/frente_local.jfif"
-import "../header.css"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useGeneralInfo } from "../hooks/useGeneralInfo";
 
-const Header = () => (
-  <header className="menu-header">
-    <div className="logo-container">
-      <img src={logoDJ} alt="Logo del restaurante" className="restaurant-logo" />
-    </div>
-    <div className="restaurant-info">
-      {/* <p>📍 San Martín 85</p>
-      <p>🕐 Abierto de 18:00 a 23:00</p> */}
-            {/* <p>San Martín 85 ● Abierto de 18:00 a 23:00</p> */}
+import "../header.css";
 
-    </div>
-    {/* <div className="restaurant-banner">
-      <img
-        src={frente_local}
-        alt="Imagen del restaurante"
-        className="banner-image"
-      />
-    </div> */}
+const Header = ({ clienteId: propClienteId }) => {
+  const { clienteId: urlClienteId } = useParams();
+  const clienteId = propClienteId || urlClienteId;
+  const { generalInfo } = useGeneralInfo(clienteId);
+  const phone = generalInfo.phone || "";
+  const logoUrl = generalInfo.profilePictureUrl || "";
 
-   
-  </header>
-);
+
+  // const [logoUrl, setLogoUrl] = useState("");
+  // const [phone, setPhone] = useState("");
+  const endpointBase = 'https://get-general-info-336444799661.us-central1.run.app';
+
+  // useEffect(() => {
+  //   const fetchHeaderData = async () => {
+  //     if (!clienteId) return;
+
+  //     try {
+  //       const response = await axios.get(`${endpointBase}/getGeneralInfo`, {
+  //         params: { clienteId },
+  //       });
+
+  //       if (response.data && response.data.generalInfo) {
+  //         const { phone, profilePictureUrl } = response.data.generalInfo;
+  //         setPhone(phone || "");
+  //         setLogoUrl(profilePictureUrl || "");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching header data:", error);
+  //     }
+  //   };
+
+  //   fetchHeaderData();
+  // }, [clienteId]);
+
+  const whatsappLink = phone ? `https://wa.me/${phone.replace(/[^0-9]/g, "")}` : "#";
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Mirá la carta de nuestro restaurante",
+          text: "¡Te va a encantar esta carta digital!",
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      alert("Tu navegador no soporta la función de compartir.");
+    }
+  };
+
+
+//   <a href={`tel:${phone}`} title="Llamar">
+//   <i className="fa fa-phone icon phone"></i>
+// </a>
+// <a href={whatsappLink} target="_blank" rel="noopener noreferrer" title="Enviar WhatsApp">
+//   <i className="fa-brands fa-whatsapp icon whatsapp"></i>
+// </a>
+// <button onClick={handleShare} className="share-btn" title="Compartir">
+//   <i className="fa fa-share-alt icon share"></i>
+// </button>
+
+
+
+  return (
+    <header className="menu-header">
+      <div className="logo-container-nav">
+        {logoUrl && (
+          <img
+            src={logoUrl}
+            alt="Logo del restaurante"
+            className="restaurant-logo"
+          />
+        )}
+      </div>
+
+      <div className="restaurant-info">
+        <div className="contact-icons">
+          {phone && (
+            <a href={`tel:${phone}`} title="Llamar">
+              <i className="fa fa-phone icon phone"></i>
+            </a>
+          )}
+          {phone && (
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Enviar WhatsApp"
+            >
+              <i
+                className="fa-brands fa-whatsapp icon whatsapp"
+          
+              ></i>
+            </a>
+          )}
+          <button onClick={handleShare} className="share-btn" title="Compartir">
+            <i className="fa-solid fa-share icon share"></i>
+           
+
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 export default Header;

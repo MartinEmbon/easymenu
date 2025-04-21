@@ -10,7 +10,6 @@ const CreateCategory = () => {
   const [loading, setLoading] = useState(false);   
   const [isEditing, setIsEditing] = useState(false);   
   const [editingCategory, setEditingCategory] = useState(null);    
-  const [isSuggestion, setIsSuggestion] = useState(false);
 
   const email = localStorage.getItem('userEmail');   
   const clienteId = localStorage.getItem('clienteId');    
@@ -24,14 +23,7 @@ const CreateCategory = () => {
           params: { email }         
         });          
         console.log('API Response:', res.data);          
-        // const categories = (res.data.categories || []).map(name => ({ name }));          
-        // When fetching categories
-const categories = (res.data.categories || []).map(cat => ({
-    name: typeof cat === 'string' ? cat : cat.name,
-    suggestion: cat.suggestion || false
-  }));
-
-  
+        const categories = (res.data.categories || []).map(name => ({ name }));          
         setCategories(categories);        
       } catch (error) {         
         console.error('Error fetching categories:', error);       
@@ -47,9 +39,7 @@ const categories = (res.data.categories || []).map(cat => ({
     try {       
       await axios.post('https://register-dishes-336444799661.us-central1.run.app', {         
         clienteId,         
-        // category: { name: newCategoryName, items: [] }       
-        category: { name: newCategoryName, items: [], suggestion: isSuggestion }
-
+        category: { name: newCategoryName, items: [] }       
       });       
       setCategories(prev => [...prev, { name: newCategoryName }]);       
       setNewCategoryName('');       
@@ -77,9 +67,7 @@ const categories = (res.data.categories || []).map(cat => ({
       await axios.put('https://update-category-336444799661.us-central1.run.app', {         
         clienteId,         
         oldCategoryName: editingCategory,  // Sending old category name         
-        // newCategoryName: newCategoryName   
-        newCategoryName,
-  suggestion: isSuggestion     
+        newCategoryName: newCategoryName   // Sending new category name       
       });      
       setCategories(categories.map(category => 
         category.name === editingCategory ? { name: newCategoryName } : category
@@ -169,10 +157,6 @@ const categories = (res.data.categories || []).map(cat => ({
           value={newCategoryName}           
           onChange={e => setNewCategoryName(e.target.value)}         
         />         
-
-
-
-
         <button            
           className="admin-btn"            
           onClick={isEditing ? handleUpdateCategory : handleCreateCategory}            
@@ -199,40 +183,14 @@ const categories = (res.data.categories || []).map(cat => ({
             list={categories}       
             setList={handleCategoryOrderChange}     
           >       
-       {categories.map(({ name, suggestion }) => (
-  <li key={name} data-id={name} className="category-item" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-    <input
-      type="checkbox"
-      checked={suggestion}
-      onChange={async (e) => {
-        const updatedCategories = categories.map(cat =>
-          cat.name === name ? { ...cat, suggestion: e.target.checked } : cat
-        );
-        setCategories(updatedCategories);
-
-        try {
-          await axios.put('https://update-category-336444799661.us-central1.run.app', {
-            clienteId,
-            oldCategoryName: name,
-            newCategoryName: name, // name remains the same
-            suggestion: e.target.checked,
-          });
-          setMessage(`Categoría "${name}" actualizada ✅`);
-          setTimeout(() => setMessage(''), 3000);
-        } catch (err) {
-          console.error(err);
-          setMessage('Error al actualizar la sugerencia');
-          setTimeout(() => setMessage(''), 3000);
-        }
-      }}
-    />
-    <span>{name}</span>
-    {suggestion && <span style={{ color: 'green' }}>🌟 sugerida</span>}
-    <button onClick={() => handleEditCategory({ name })} className="edit-btn">Editar</button>
-    <button onClick={() => handleDeleteCategory(name)} className="delete-btn">Eliminar</button>
-  </li>
-))}
-
+            {categories.map(({ name }) => (         
+              <li key={name} data-id={name} className="category-item">           
+                <span>{name}</span>           
+                <button onClick={() => handleEditCategory({ name })} className="edit-btn">Editar</button>    
+                
+                <button onClick={() => handleDeleteCategory(name)} className="delete-btn">Eliminar</button>         
+              </li>       
+            ))}     
           </ReactSortable>     
         ) : (       
           <p>No hay categorías disponibles.</p>     

@@ -1,29 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
 import AdminLoginModal from './AdminLoginModal';
 import { useParams } from 'react-router-dom';
-import "../Footer.css"
+import { useGeneralInfo } from "../hooks/useGeneralInfo";
+import FooterContactForm from './ContactFormFooter';
+import "../Footer.css";
 
 const Footer = ({ clienteId: propClienteId }) => {
     const { clienteId: urlClienteId } = useParams();
     const clienteId = propClienteId || urlClienteId;
+
     const [showAllHours, setShowAllHours] = useState(false);
     const hoursRef = useRef(null);
     const [maxHeight, setMaxHeight] = useState('30px');
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [contactInfo, setContactInfo] = useState({
-        email: '',
-        phone: '',
-        address: '',
-        hours: '',
-        instagram: '',
-        facebook: '',
-    });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [showForm, setShowForm] = useState(false);
 
-    const endpointBase = 'https://get-general-info-336444799661.us-central1.run.app';
+    const { generalInfo, loading, error } = useGeneralInfo(clienteId);
 
+    const {
+        email = '',
+        phone = '',
+        address = '',
+        hours = '',
+        instagram = '',
+        facebook = '',
+    } = generalInfo || {};
+
+    const toggleFormVisibility = () => {
+        setShowForm((prevState) => !prevState); // Toggle visibility of the form
+      };
     useEffect(() => {
         if (hoursRef.current) {
             if (showAllHours) {
@@ -32,49 +37,7 @@ const Footer = ({ clienteId: propClienteId }) => {
                 setMaxHeight('30px');
             }
         }
-    }, [showAllHours, contactInfo.hours]);
-
-    useEffect(() => {
-        const fetchContactInfo = async () => {
-            if (!clienteId) {
-                console.error('No clienteId provided');
-                setError('❌ clienteId no disponible');
-                return;
-            }
-
-            try {
-                setLoading(true);
-                console.log('Fetching contact info for clienteId:', clienteId);
-
-                const response = await axios.get(`${endpointBase}/getGeneralInfo`, {
-                    params: { clienteId },
-                });
-                console.log('API response', response)
-                if (response.data && response.data.generalInfo) {
-                    const { email, phone, address, hours, instagram, facebook } = response.data.generalInfo;
-
-                    setContactInfo({
-                        hours: hours,
-                        address: address,
-                        email: email,
-                        phone: phone,
-                        instagram: instagram || '',
-                        facebook: facebook || '',
-                    });
-                } else {
-                    console.error('No generalInfo found in the response:', response.data);
-                    setError('❌ No se encontró la información de contacto');
-                }
-            } catch (error) {
-                console.error('Error fetching contact info:', error);
-                setError('❌ Error al cargar la información de contacto');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchContactInfo();
-    }, [clienteId]);
+    }, [showAllHours, hours]);
 
     return (
         <footer className="footer">
@@ -85,25 +48,25 @@ const Footer = ({ clienteId: propClienteId }) => {
                     <p>{error}</p>
                 ) : (
                     <>
-                        {contactInfo.address && (
+                        {address && (
                             <p>
                                 <i className="fa fa-map-marker" style={{ marginRight: '8px' }}></i>
-                                Dirección: {contactInfo.address}
+                                Dirección: {address}
                             </p>
                         )}
-                        {contactInfo.email && (
+                        {email && (
                             <p>
                                 <i className="fa fa-envelope" style={{ marginRight: '8px' }}></i>
-                                Contacto: <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
+                                Contacto: <a href={`mailto:${email}`}>{email}</a>
                             </p>
                         )}
-                        {contactInfo.phone && (
+                        {phone && (
                             <p>
                                 <i className="fa fa-phone" style={{ marginRight: '8px' }}></i>
-                                Teléfono: <a href={`tel:${contactInfo.phone}`}>{contactInfo.phone}</a>
+                                Teléfono: <a href={`tel:${phone}`}>{phone}</a>
                             </p>
                         )}
-                        {contactInfo.hours && Object.values(contactInfo.hours).some(h => h) && (
+                        {hours && Object.values(hours).some(h => h) && (
                             <div className="footer-hours">
                                 <h4>
                                     <i className="fa fa-clock-o" style={{ marginRight: '6px' }}></i>Horarios de atención:
@@ -118,16 +81,16 @@ const Footer = ({ clienteId: propClienteId }) => {
                                         transition: 'max-height 0.4s ease-in-out',
                                     }}
                                 >
-                                    {Object.entries(contactInfo.hours)
+                                    {Object.entries(hours)
                                         .filter(([_, h]) => h)
-                                        .map(([day, hours]) => (
+                                        .map(([day, value]) => (
                                             <li key={day}>
-                                                {day.charAt(0).toUpperCase() + day.slice(1)}: {hours}
+                                                {day.charAt(0).toUpperCase() + day.slice(1)}: {value}
                                             </li>
                                         ))}
                                 </ul>
 
-                                {Object.values(contactInfo.hours).filter(h => h).length > 1 && (
+                                {Object.values(hours).filter(h => h).length > 1 && (
                                     <button className="toggle-hours-btn" onClick={() => setShowAllHours(!showAllHours)}>
                                         <i className={`fa ${showAllHours ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
                                     </button>
@@ -135,9 +98,9 @@ const Footer = ({ clienteId: propClienteId }) => {
                             </div>
                         )}
                         <div className="social-links">
-                            {contactInfo.instagram && (
+                            {instagram && (
                                 <a
-                                    href={`https://www.instagram.com/${contactInfo.instagram}`}
+                                    href={`https://www.instagram.com/${instagram}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Instagram"
@@ -145,9 +108,9 @@ const Footer = ({ clienteId: propClienteId }) => {
                                     <i className="fa-brands fa-instagram" style={{ marginRight: '10px', fontSize: '1.2rem' }}></i>
                                 </a>
                             )}
-                            {contactInfo.facebook && (
+                            {facebook && (
                                 <a
-                                    href={`https://www.facebook.com/${contactInfo.facebook}`}
+                                    href={`https://www.facebook.com/${facebook}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label="Facebook"
@@ -164,13 +127,24 @@ const Footer = ({ clienteId: propClienteId }) => {
                 </button>
 
                 <div className="footer-easymenu">
-                    <p>
+                    {/* <p>
                         ¿Querés tener tu carta digital como esta? Visitá&nbsp;
                         <a href="https://easymenu.com" target="_blank" rel="noopener noreferrer">
                             easymenu.com
                         </a>
-                    </p>
+                    </p> */}
+
+<p>
+  ¿Querés tener tu carta digital como esta?{" "}
+  <button onClick={toggleFormVisibility} className="cta-link-btn">
+    Clicá acá
+  </button>
+</p>
+
+
+
                 </div>
+      {showForm && <FooterContactForm />}
 
                 <AdminLoginModal isOpen={showLoginModal} onClose={() => setShowLoginModal(false)} />
             </div>

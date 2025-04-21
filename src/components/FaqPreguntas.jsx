@@ -17,11 +17,11 @@ const preguntasFrecuentes = [
   },
   {
     question: "¿Tiene algún costo mensual?",
-    answer: "Ofrecemos un plan gratuito básico y planes premium con funcionalidades adicionales como múltiples idiomas, fotos destacadas, y estadísticas de uso.",
+    answer: "Ofrecemos un plan gratuito básico de prueba y después suscripción mensual.",
   },
   {
     question: "¿Puedo mostrar promociones o combos especiales?",
-    answer: "Claro. Podés destacar promociones, combos o platos del día directamente desde el panel. También podés programarlas por día u horario.",
+    answer: "Claro. Podés destacar promociones, combos o platos del día directamente desde el panel.",
   },
 ];
 

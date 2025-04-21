@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "../GeneralInfo.css"
-const GeneralInfo = ({ email, clienteId }) => {
+import { useOutletContext } from 'react-router-dom';
+
+const GeneralInfo = () => {
   const [info, setInfo] = useState({
     address: '',
+    profilePictureUrl: '', // 👈 Add this line
     email:'',
     phone: '',
     instagram: '',
@@ -18,6 +21,7 @@ const GeneralInfo = ({ email, clienteId }) => {
       domingo: '',
     },
   });
+  const { email, clienteId } = useOutletContext();
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
@@ -75,6 +79,65 @@ const GeneralInfo = ({ email, clienteId }) => {
     }
   };
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    try {
+      setLoading(true);
+      const imageUrl = await uploadImageToGCS(file);
+  
+      const updatedInfo = {
+        ...info,
+        profilePictureUrl: imageUrl,
+      };
+  
+      setInfo(updatedInfo);
+  
+      // Save to Firestore
+      await axios.put(`https://general-info-336444799661.us-central1.run.app/saveGeneralInfo`, {
+        clienteId,
+        generalInfo: updatedInfo,
+      });
+  
+      setSuccess('✅ Imagen subida y guardada con éxito');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setSuccess('❌ Error al subir la imagen');
+    } finally {
+      setLoading(false);
+      setTimeout(() => setSuccess(null), 4000);
+    }
+  };
+  
+
+  const uploadImageToGCS = async (file) => {
+    try {
+      const response = await axios.post(
+        "https://us-central1-moonlit-sphinx-400613.cloudfunctions.net/add-cover-photo-album",
+        {
+          filename: file.name,
+          contentType: file.type,
+        }
+      );
+      const { uploadUrl, publicUrl } = response.data;
+  
+      const uploadResponse = await axios.put(uploadUrl, file, {
+        headers: { "Content-Type": file.type },
+      });
+  
+      if (uploadResponse.status === 200) {
+        return publicUrl;
+      } else {
+        throw new Error("Upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      throw error;
+    }
+  };
+  
+
   return (
     <div className="general-info-container">
       <h2 className="general-info-form-title">Información General</h2>
@@ -82,7 +145,25 @@ const GeneralInfo = ({ email, clienteId }) => {
       {loading && <p className="general-info-message">Cargando...</p>}
       {success && <p className={`general-info-message ${success.includes('Error') ? 'general-info-error' : 'general-info-success'}`}>{success}</p>}
   
-      <label className="general-info-label">Dirección:</label>
+      <label className="general-info-label">Foto de perfil del restaurante:</label>
+<input
+  type="file"
+  accept="image/*"
+  onChange={handleFileChange}
+  className="general-info-input"
+/>
+
+{/* Optional preview */}
+{info.profilePictureUrl && (
+  <img
+    src={info.profilePictureUrl}
+    alt="Imagen de perfil"
+    style={{ width: '200px', marginTop: '10px', borderRadius: '8px' }}
+  />
+)}
+
+
+<label className="general-info-label">Dirección:</label>
       <input
         type="text"
         name="address"
