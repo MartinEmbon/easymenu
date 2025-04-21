@@ -40,7 +40,8 @@ const LandingPage = () => {
         <div className="hero-content">
           <h1>Digitalizá tu menú con facilidad</h1>
           <p>Ofrecé a tus clientes una experiencia digital con nuestro menú en QR.</p>
-          <a href="/signup" className="cta-button">Comenzá ahora</a>
+          <a className="cta-button" onClick={() => scrollToSection('contact')}>Escribinos</a>
+        
         </div>
         <img src={hero} alt="Hero" className="hero-image" />
       </section>

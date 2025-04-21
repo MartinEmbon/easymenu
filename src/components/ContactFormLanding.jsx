@@ -6,7 +6,8 @@ const ContactFormLanding = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
+     phone:""
   });
 
   const handleChange = (e) => {
@@ -27,7 +28,7 @@ const ContactFormLanding = () => {
       );
   
       alert("Mensaje enviado con éxito.");
-      setFormData({ name: "", email: "", message: ""}); // Reset form
+      setFormData({ name: "", email: "", message: "", phone:""}); // Reset form
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
       alert("Error al enviar el mensaje. Intenta nuevamente.");
@@ -46,6 +47,16 @@ const ContactFormLanding = () => {
           name="name"
           placeholder="Tu nombre"
           value={formData.name}
+          onChange={handleChange}
+          required
+        />
+
+<label>Teléfono:</label>
+        <input
+          type="number"
+          name="phone"
+          placeholder="Tu teléfono de contacto"
+          value={formData.phone}
           onChange={handleChange}
           required
         />
