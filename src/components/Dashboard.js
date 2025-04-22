@@ -52,7 +52,7 @@ const location = useLocation()
 
         {/* Navbar Menu */}
         <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
-          <Link to={`/dashboard/${clienteId}/create`} className="nav-link">Crear Categoría</Link>
+          <Link to={`/dashboard/${clienteId}/create`} className="nav-link">Categorías</Link>
           <Link to={`/dashboard/${clienteId}/add`} className="nav-link">Agregar Producto</Link>
           <Link to={`/dashboard/${clienteId}/edit`} className="nav-link">Editar Producto</Link>
           <Link to={`/dashboard/${clienteId}/info`} className="nav-link">Info Establecimiento</Link>

@@ -102,7 +102,7 @@ const toggleCategory = (key) => {
 
       {menuItems.some(cat => cat.suggestion) && (
   <div className="menu-container">
-    <h1 className="menu-title">Sugerencias del Chef</h1>
+    <h1 className="menu-title">Especiales</h1>
     {menuItems
       .filter(category => category.suggestion) // Suggestion categories
       .map((category, i) => {

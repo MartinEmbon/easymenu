@@ -56,7 +56,7 @@ const EditDishes = () => {
         setEditableItem({
             catIndex,
             itemIndex,
-            field,
+            field: 'category',
             currentValue: categories[catIndex].items[itemIndex][field],
             originalName: categories[catIndex].items[itemIndex].name, // still needed for itemId
         });
@@ -137,28 +137,6 @@ const openDeleteModal = (catIndex, itemIndex) => {
     setIsModalOpen(true);
 };
 
-const handleRemoveImage = async (catIndex, itemIndex) => {
-    try {
-        const updatedCategories = [...categories];
-        updatedCategories[catIndex].items[itemIndex].image = "";
-        setCategories(updatedCategories);
-
-        await axios.put("https://update-dish-336444799661.us-central1.run.app", {
-            clienteId,
-            categoryName: updatedCategories[catIndex].name,
-            itemId: categories[catIndex].items[itemIndex].name,
-            field: 'image',
-            value: "", // Clear the image on the backend
-        });
-
-        console.log("✅ Imagen eliminada correctamente");
-    } catch (error) {
-        console.error("❌ Error al eliminar imagen:", error);
-        alert("No se pudo quitar la imagen.");
-    }
-};
-
-
 return (
     <div className="dish-form-container">
         <h2 className="form-title">Editar / Eliminar Platos</h2>
@@ -216,13 +194,6 @@ return (
                                             handleImageChange(catIndex, itemIndex, e.target.files[0])
                                         }
                                     />
-                                      <button
-        type="button"
-        className="remove-image-button"
-        onClick={() => handleRemoveImage(catIndex, itemIndex)}
-    >
-        Quitar imagen
-    </button>
                                 </label>
 
                                 <div className="edit-fields">

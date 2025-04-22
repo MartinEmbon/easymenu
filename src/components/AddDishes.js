@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useOutletContext } from 'react-router-dom';
-
+import "../AddDishes.css"
 const AddDishes = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -47,7 +47,7 @@ const AddDishes = () => {
   };
 
   const handleSubmit = async () => {
-    if (!email || !selectedCategory || items.some(i => !i.name || !i.description || !i.price)) {
+    if (!email || !selectedCategory || items.some(i => !i.name ||  !i.price)) {
       setMessage('Completá todos los campos');
       return;
     }
@@ -58,11 +58,13 @@ const AddDishes = () => {
     try {
       const updatedItems = await Promise.all(
         items.map(async (item) => {
+          const uniqueId = generateUniqueId(); // Generate a unique ID for each dish
+
           if (item.imageFile) {
             const publicUrl = await uploadImageToGCS(item.imageFile);
-            return { ...item, image: publicUrl, price: parseInt(item.price) };
+            return { ...item, id: uniqueId,image: publicUrl, price: parseInt(item.price) };
           }
-          return { ...item, price: parseInt(item.price) };
+          return { ...item, id: uniqueId, price: parseInt(item.price) };
         })
       );
   
@@ -82,6 +84,10 @@ const AddDishes = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const generateUniqueId = () => {
+    return '_' + Math.random().toString(36).substr(2, 9); // Simple unique ID generator
   };
 
   const handleImageChange = (index, file) => {

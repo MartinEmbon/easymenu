@@ -172,3 +172,25 @@
     background-color: #c5303c;
   }
   
+  .icon-helper {
+    margin-top: 10px;
+  }
+  
+  .icon-samples {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .icon-samples span {
+    font-size: 1.6rem;
+    cursor: copy;
+    transition: transform 0.2s;
+  }
+  
+  .icon-samples span:hover {
+    transform: scale(1.2);
+  }
+  

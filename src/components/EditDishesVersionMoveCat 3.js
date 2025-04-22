@@ -20,8 +20,10 @@ const EditDishes = () => {
             const res = await axios.get("https://list-dishes-336444799661.us-central1.run.app", {
                 params: { clienteId }
             });
+            console.log("list",res)
             setCategories(res.data.categories || []);
         };
+      
         fetchCategories();
     }, [email, clienteId]);
 
@@ -137,28 +139,40 @@ const openDeleteModal = (catIndex, itemIndex) => {
     setIsModalOpen(true);
 };
 
-const handleRemoveImage = async (catIndex, itemIndex) => {
+// Function to handle moving the dish to a different category
+const handleMoveDish = async (catIndex, itemIndex, newCategoryName) => {
     try {
-        const updatedCategories = [...categories];
-        updatedCategories[catIndex].items[itemIndex].image = "";
-        setCategories(updatedCategories);
-
-        await axios.put("https://update-dish-336444799661.us-central1.run.app", {
-            clienteId,
-            categoryName: updatedCategories[catIndex].name,
-            itemId: categories[catIndex].items[itemIndex].name,
-            field: 'image',
-            value: "", // Clear the image on the backend
-        });
-
-        console.log("✅ Imagen eliminada correctamente");
+      const itemToMove = categories[catIndex].items[itemIndex];
+      // Find the new category
+      const newCategory = categories.find((cat) => cat.name === newCategoryName);
+  
+      // Remove the dish from the current category
+      const updatedCategories = [...categories];
+      updatedCategories[catIndex].items.splice(itemIndex, 1);
+  
+      // Add the dish to the new category
+      newCategory.items.push(itemToMove);
+  
+      // Update the state
+      setCategories(updatedCategories);
+  
+      // Call the backend function to move the dish
+      await axios.put("https://update-dish-336444799661.us-central1.run.app", {
+        clienteId,
+        categoryName: newCategoryName,
+        itemId: itemToMove.name,
+        field: 'category',
+        value: newCategoryName,
+      });
+  
+      console.log(`✅ Dish '${itemToMove.name}' moved to category '${newCategoryName}' successfully`);
     } catch (error) {
-        console.error("❌ Error al eliminar imagen:", error);
-        alert("No se pudo quitar la imagen.");
+      console.error("Error moving dish:", error);
     }
-};
-
-
+  };
+  
+  
+  
 return (
     <div className="dish-form-container">
         <h2 className="form-title">Editar / Eliminar Platos</h2>
@@ -191,6 +205,26 @@ return (
                         ) : (
                             <>
                                 <p className="item-preview">
+                               
+                                <div>
+  <label>Categoria:</label>
+  <select
+  value={item.category || cat.name} // Default to current category if available
+  onChange={async (e) => {
+    const newCategory = e.target.value;
+    if (newCategory !== cat.name) {
+      await handleMoveDish(catIndex, itemIndex, newCategory); // Move dish to new category
+    }
+  }}
+>
+  {categories.map((category) => (
+    <option key={category.name} value={category.name}>
+      {category.name}
+    </option>
+  ))}
+</select>
+</div>
+
                                     <strong>{item.name}</strong>: Descripción: {item.description} - Precio: ${item.price}
                                 </p>
                                 <label className="image-label">
@@ -216,13 +250,6 @@ return (
                                             handleImageChange(catIndex, itemIndex, e.target.files[0])
                                         }
                                     />
-                                      <button
-        type="button"
-        className="remove-image-button"
-        onClick={() => handleRemoveImage(catIndex, itemIndex)}
-    >
-        Quitar imagen
-    </button>
                                 </label>
 
                                 <div className="edit-fields">
