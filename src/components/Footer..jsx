@@ -122,7 +122,7 @@ const Footer = ({ clienteId: propClienteId }) => {
                     </>
                 )}
 
-                <button className="admin-btn" onClick={() => setShowLoginModal(true)}>
+                <button className="admin-btn-footer" onClick={() => setShowLoginModal(true)}>
                     Acceder como admin
                 </button>
 

@@ -29,7 +29,9 @@
   }
 
   .menu-category .accordion-button h2{
-margin: .7rem 0;  }
+margin: .7rem 0; 
+font-size: 17px;
+}
   
   /* Toggle button */
   .category-toggle {

@@ -76,19 +76,20 @@
   
 
   
+
   .close-button {
-    background: transparent;
+    background-color: transparent !important;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: #999;
+    color: black !important;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -20px;
+    right: -10px;
     transition: color 0.3s ease;
   }
   
   .close-button:hover {
     color: #333;
   }
-  
+

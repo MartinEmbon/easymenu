@@ -248,7 +248,7 @@ const CreateCategory = () => {
                   }}
                 />
                 <span  className="category-name">{name}</span>
-                {suggestion && <span className="category-suggestion">🌟 sugerida</span>}
+                {suggestion && <span className="category-suggestion">🌟 destacada</span>}
                 <div className="category-actions">
                 <button onClick={() => handleEditCategory({ name })} className="edit-btn">Editar</button>
                 <button onClick={() => handleDeleteCategory(name)} className="delete-btn">Eliminar</button>
