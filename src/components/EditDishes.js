@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Modal from './Modal';  // Import the modal component
 import { useOutletContext } from 'react-router-dom';
-
+import SearchBar from './SearchBar';
 import "../EditDish.css"
 const EditDishes = () => {
     const [categories, setCategories] = useState([]);
@@ -13,7 +13,8 @@ const EditDishes = () => {
     const [itemToDelete, setItemToDelete] = useState(null); // To track which item to delete
     const { email } = useOutletContext();        // ✅ get email from context
     const { clienteId } = useParams();           // ✅ get clienteId from URL params
-      
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
         const fetchCategories = async () => {
             if (!email) return;
@@ -162,10 +163,16 @@ const handleRemoveImage = async (catIndex, itemIndex) => {
 return (
     <div className="dish-form-container">
         <h2 className="form-title">Editar / Eliminar Platos</h2>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
         {categories.map((cat, catIndex) => (
             <div key={catIndex} className="category-section">
                 <h4 className="category-title">{cat.name}</h4>
-                {(cat.items || []).map((item, itemIndex) => (
+                {(cat.items || []).filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+                .map((item, itemIndex) => (
                     <div key={itemIndex} className="item-form">
                         {editableItem?.catIndex === catIndex &&
                         editableItem?.itemIndex === itemIndex &&

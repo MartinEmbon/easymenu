@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../FaqPreguntas.css"; // Asegurate de tener este archivo
 import imagenFaq from "../assets/images/qr.png"; // Asegurate de tener una imagen en tu carpeta de assets
-
+import imagen2 from "../assets/images/menuqr.png"
 const preguntasFrecuentes = [
   {
     question: "¿Cómo funciona el menú QR?",
@@ -35,7 +35,7 @@ const FaqPreguntas = () => {
   return (
     <section className="faq-wrapper">
       <div className="faq-image">
-        <img src={imagenFaq} alt="Preguntas frecuentes" />
+        <img src={imagen2} alt="Preguntas frecuentes" />
       </div>
       <div className="faq-section">
         <h2>Preguntas Frecuentes</h2>

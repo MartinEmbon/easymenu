@@ -19,7 +19,7 @@
 
 .hero-content {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .hero h1 {
@@ -45,6 +45,8 @@
     max-height: 400px;
     object-fit: cover;
     margin-top: 20px;
+    max-width: 800px; /* Increased max-width to make the image bigger */
+    height: auto; /* Ensures the image keeps its aspect ratio */
 }
 
 .features, .testimonials {
@@ -100,11 +102,13 @@
 
     .hero-image {
         max-height: 300px; /* Reduced height on mobile */
+        max-width: 90%; /* Make the image a bit bigger on medium-sized screens */
+        max-height: 400px; /* Optional: if you want to restrict height */
     }
 
     .features, .testimonials {
         flex-direction: column;  /* Stacks items vertically on mobile */
-        margin: 20px 0;  /* Reduced margin */
+        margin: 0 0;  /* Reduced margin */
     }
 
     .feature, .testimonial {
@@ -190,11 +194,14 @@ body {
   .hero {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 1rem 2rem;
     background-color: #f9f9f9;
     flex-wrap: wrap;
+    margin-bottom: 10px;
   }
+ 
+  
   
   .hero-content {
     max-width: 500px;
@@ -218,7 +225,7 @@ body {
   }
   
   .hero-image {
-    max-width: 400px;
+    max-width: 600px;
     width: 100%;
     margin-top: 2rem;
   }

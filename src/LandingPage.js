@@ -39,7 +39,7 @@ const LandingPage = () => {
       <section id="hero" className="hero">
         <div className="hero-content">
           <h1>Digitalizá tu menú con facilidad</h1>
-          <p>Ofrecé a tus clientes una experiencia digital con nuestro menú en QR.</p>
+          <p>Ofrecé a tus clientes una experiencia digital con menú en QR.</p>
           <a className="cta-button" onClick={() => scrollToSection('contact')}>Escribinos</a>
         
         </div>
