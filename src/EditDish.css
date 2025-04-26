@@ -148,3 +148,27 @@
 .remove-image-button:hover {
     background-color: #e63946;
 }
+
+.cancel-button {
+  background-color: #ccc;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  margin-left: 10px;
+  padding: 6px 12px;
+
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.button-group {
+  display: flex;
+  gap: 8px; /* space between buttons */
+  justify-content: flex-start; /* or center, if you want */
+  flex-direction: column;
+}

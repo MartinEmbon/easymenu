@@ -110,10 +110,10 @@ const EditDishes = () => {
     const handleDelete = async () => {
         if (!itemToDelete) return;
         const { catIndex, itemIndex } = itemToDelete;
-    
+
         try {
             const dishToDelete = categories[catIndex].items[itemIndex];
-    
+
             await axios.delete("https://delete-dish-336444799661.us-central1.run.app", {
                 data: {
                     clienteId,
@@ -121,7 +121,7 @@ const EditDishes = () => {
                     itemId: dishToDelete.name,
                 }
             });
-    
+
             const updatedCategories = [...categories];
             updatedCategories[catIndex].items.splice(itemIndex, 1);
             setCategories(updatedCategories);
@@ -132,151 +132,235 @@ const EditDishes = () => {
             alert("Error al eliminar el plato.");
         }
     };
-// Function to trigger modal for deletion confirmation
-const openDeleteModal = (catIndex, itemIndex) => {
-    setItemToDelete({ catIndex, itemIndex });
-    setIsModalOpen(true);
-};
+    // Function to trigger modal for deletion confirmation
+    const openDeleteModal = (catIndex, itemIndex) => {
+        setItemToDelete({ catIndex, itemIndex });
+        setIsModalOpen(true);
+    };
 
-const handleRemoveImage = async (catIndex, itemIndex) => {
-    try {
-        const updatedCategories = [...categories];
-        updatedCategories[catIndex].items[itemIndex].image = "";
-        setCategories(updatedCategories);
+    const handleRemoveImage = async (catIndex, itemIndex) => {
+        try {
+            const updatedCategories = [...categories];
+            updatedCategories[catIndex].items[itemIndex].image = "";
+            setCategories(updatedCategories);
 
-        await axios.put("https://update-dish-336444799661.us-central1.run.app", {
-            clienteId,
-            categoryName: updatedCategories[catIndex].name,
-            itemId: categories[catIndex].items[itemIndex].name,
-            field: 'image',
-            value: "", // Clear the image on the backend
-        });
+            await axios.put("https://update-dish-336444799661.us-central1.run.app", {
+                clienteId,
+                categoryName: updatedCategories[catIndex].name,
+                itemId: categories[catIndex].items[itemIndex].name,
+                field: 'image',
+                value: "", // Clear the image on the backend
+            });
 
-        console.log("✅ Imagen eliminada correctamente");
-    } catch (error) {
-        console.error("❌ Error al eliminar imagen:", error);
-        alert("No se pudo quitar la imagen.");
-    }
-};
+            console.log("✅ Imagen eliminada correctamente");
+        } catch (error) {
+            console.error("❌ Error al eliminar imagen:", error);
+            alert("No se pudo quitar la imagen.");
+        }
+    };
 
 
-return (
-    <div className="dish-form-container">
-        <h2 className="form-title">Editar / Eliminar Platos</h2>
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
-        {categories.map((cat, catIndex) => (
+    return (
+        <div className="dish-form-container">
+          <h2 className="form-title">Editar / Eliminar Platos</h2>
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      
+          {categories.map((cat, catIndex) => (
             <div key={catIndex} className="category-section">
-                <h4 className="category-title">{cat.name}</h4>
-                {(cat.items || []).filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.description.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+              <h4 className="category-title">{cat.name}</h4>
+              {(cat.items || [])
+                .filter(item =>
+                  item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  item.description.toLowerCase().includes(searchTerm.toLowerCase())
+                )
                 .map((item, itemIndex) => (
-                    <div key={itemIndex} className="item-form">
+                  <div key={itemIndex} className="item-form">
+                    <label className="image-label">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="dish-image"
+                        onClick={() =>
+                          setEditableItem({
+                            catIndex,
+                            itemIndex,
+                            field: 'image',
+                            file: null,
+                            originalName: item.name,
+                          })
+                        }
+                      />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden-file-input"
+                        onChange={(e) =>
+                          handleImageChange(catIndex, itemIndex, e.target.files[0])
+                        }
+                      />
+                      <button
+                        type="button"
+                        className="remove-image-button"
+                        onClick={() => handleRemoveImage(catIndex, itemIndex)}
+                      >
+                        Quitar imagen
+                      </button>
+                    </label>
+      
+                    <div className="edit-fields">
+                      {/* Name Field */}
+                      <div>
                         {editableItem?.catIndex === catIndex &&
                         editableItem?.itemIndex === itemIndex &&
-                        editableItem?.field !== 'image' ? (
-                            <>
-                                <input
-                                    type={editableItem.field === "price" ? "number" : "text"}
-                                    value={editableItem.currentValue}
-                                    onChange={(e) =>
-                                        setEditableItem({ ...editableItem, currentValue: e.target.value })
-                                    }
-                                    className="edit-input"
-                                />
-                                <button
-                                    onClick={() =>
-                                        handleSave(catIndex, itemIndex, editableItem.field, editableItem.currentValue)
-                                    }
-                                    className="save-button"
-                                >
-                                    Guardar
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <p className="item-preview">
-                                    <strong>{item.name}</strong>: Descripción: {item.description} - Precio: ${item.price}
-                                </p>
-                                <label className="image-label">
-                                    <img
-                                        src={item.image}
-                                        alt={item.name}
-                                        className="dish-image"
-                                        onClick={() =>
-                                            setEditableItem({
-                                                catIndex,
-                                                itemIndex,
-                                                field: 'image',
-                                                file: null,
-                                                originalName: item.name,
-                                            })
-                                        }
-                                    />
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="hidden-file-input"
-                                        onChange={(e) =>
-                                            handleImageChange(catIndex, itemIndex, e.target.files[0])
-                                        }
-                                    />
-                                      <button
-        type="button"
-        className="remove-image-button"
-        onClick={() => handleRemoveImage(catIndex, itemIndex)}
-    >
-        Quitar imagen
-    </button>
-                                </label>
+                        editableItem?.field === 'name' ? (
+                          <>
+                            <input
+                              type="text"
+                              value={editableItem.currentValue}
+                              onChange={(e) =>
+                                setEditableItem({ ...editableItem, currentValue: e.target.value })
+                              }
+                              className="edit-input"
+                            />
+                              <div className="button-group">
 
-                                <div className="edit-fields">
-                                    <div>
-                                    <span> <strong>Nombre actualizado: {item.name}</strong></span>
-                                        <i
-                                            className="fas fa-pencil-alt edit-icon"
-                                            onClick={() => handleEditClick(catIndex, itemIndex, 'name', item.name)}
-                                            title="Editar nombre"
-                                        ></i>
-                                    </div>
-                                    <div>
-                                        <span>Descripción actualizada: {item.description}</span>
-                                        <i
-                                            className="fas fa-pencil-alt edit-icon"
-                                            onClick={() => handleEditClick(catIndex, itemIndex, 'description', item.description)}
-                                            title="Editar descripción"
-                                        ></i>
-                                    </div>
-                                    <div>
-                                        <span>Precio actualizado: ${item.price}</span>
-                                        <i
-                                            className="fas fa-pencil-alt edit-icon"
-                                            onClick={() => handleEditClick(catIndex, itemIndex, 'price', item.price)}
-                                            title="Editar precio"
-                                        ></i>
-                                    </div>
-                                    <i
-                                        className="fas fa-trash-alt delete-icon"
-                                        onClick={() => openDeleteModal(catIndex, itemIndex)}
-                                    ></i>
-                                </div>
-                            </>
+                            <button
+                              onClick={() =>
+                                handleSave(catIndex, itemIndex, 'name', editableItem.currentValue)
+                              }
+                              className="save-button"
+                            >
+                              Guardar
+                            </button>
+                            <button
+                              onClick={() => setEditableItem(null)}
+                              className="cancel-button"
+                            >
+                              Cancelar
+                            </button>
+                            </div>
+
+                          </>
+                        ) : (
+                          <>
+                            <span><strong>Nombre: {item.name}</strong></span>
+                            <i
+                              className="fas fa-pencil-alt edit-icon"
+                              onClick={() =>
+                                handleEditClick(catIndex, itemIndex, 'name', item.name)
+                              }
+                              title="Editar nombre"
+                            ></i>
+                          </>
                         )}
+                      </div>
+      
+                      {/* Description Field */}
+                      <div>
+                        {editableItem?.catIndex === catIndex &&
+                        editableItem?.itemIndex === itemIndex &&
+                        editableItem?.field === 'description' ? (
+                          <>
+                            <input
+                              type="text"
+                              value={editableItem.currentValue}
+                              onChange={(e) =>
+                                setEditableItem({ ...editableItem, currentValue: e.target.value })
+                              }
+                              className="edit-input"
+                            />
+                            <button
+                              onClick={() =>
+                                handleSave(catIndex, itemIndex, 'description', editableItem.currentValue)
+                              }
+                              className="save-button"
+                            >
+                              Guardar
+                            </button>
+                            <button
+                              onClick={() => setEditableItem(null)}
+                              className="cancel-button"
+                            >
+                              Cancelar
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <span>Descripción: {item.description}</span>
+                            <i
+                              className="fas fa-pencil-alt edit-icon"
+                              onClick={() =>
+                                handleEditClick(catIndex, itemIndex, 'description', item.description)
+                              }
+                              title="Editar descripción"
+                            ></i>
+                          </>
+                        )}
+                      </div>
+      
+                      {/* Price Field */}
+                      <div>
+                        {editableItem?.catIndex === catIndex &&
+                        editableItem?.itemIndex === itemIndex &&
+                        editableItem?.field === 'price' ? (
+                          <>
+                            <input
+                              type="number"
+                              value={editableItem.currentValue}
+                              onChange={(e) =>
+                                setEditableItem({ ...editableItem, currentValue: e.target.value })
+                              }
+                              className="edit-input"
+                            />
+                            <button
+                              onClick={() =>
+                                handleSave(catIndex, itemIndex, 'price', editableItem.currentValue)
+                              }
+                              className="save-button"
+                            >
+                              Guardar
+                            </button>
+                            <button
+                              onClick={() => setEditableItem(null)}
+                              className="cancel-button"
+                            >
+                              Cancelar
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <span>Precio: ${item.price}</span>
+                            <i
+                              className="fas fa-pencil-alt edit-icon"
+                              onClick={() =>
+                                handleEditClick(catIndex, itemIndex, 'price', item.price)
+                              }
+                              title="Editar precio"
+                            ></i>
+                          </>
+                        )}
+                      </div>
+      
+                      {/* Delete icon */}
+                      <i
+                        className="fas fa-trash-alt delete-icon"
+                        onClick={() => openDeleteModal(catIndex, itemIndex)}
+                      ></i>
                     </div>
+                  </div>
                 ))}
             </div>
-        ))}
-
-        <Modal
+          ))}
+      
+          <Modal
             isOpen={isModalOpen}
             message="¿Estás seguro de que deseas eliminar este plato?"
             onConfirm={handleDelete}
             onCancel={() => setIsModalOpen(false)}
-        />
-    </div>
-);
+          />
+        </div>
+      );
+      
 
 };
 

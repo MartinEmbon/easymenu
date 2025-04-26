@@ -175,6 +175,8 @@ const CreateCategory = () => {
   <p style={{ fontSize: "0.9rem", marginTop: "0.5rem" }}>
   Estos íconos le dan vida a tus categorías. Copiá el que más te guste y sumalo al nombre.  </p>
   <div className="icon-samples" style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
+  <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }}>🍺</span>
+
     <span style={{ fontSize: "1.5rem", backgroundColor: "#fff3cd", padding: "4px 8px", borderRadius: "8px" }}>🍽</span>
     <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }}>🥗</span>
     <span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }}>🍷</span>
