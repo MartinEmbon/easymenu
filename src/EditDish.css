@@ -172,3 +172,45 @@
   justify-content: flex-start; /* or center, if you want */
   flex-direction: column;
 }
+
+
+/* Shared button styles */
+.move-up-button, .move-down-button {
+  background-color: #f0f0f0;  /* Light grey background */
+  border: 1px solid #ccc;  /* Border around the button */
+  padding: 8px 12px;  /* Space inside the button */
+  font-size: 18px;  /* Increase font size for visibility */
+  border-radius: 50%;  /* Round corners */
+  cursor: pointer;  /* Pointer cursor on hover */
+  transition: all 0.3s ease;  /* Smooth transition for hover effects */
+}
+.move-down-button{
+  margin-left: 5px;
+}
+
+.move-up-button:hover, .move-down-button:hover {
+  background-color: #dcdcdc;  /* Slightly darker grey on hover */
+}
+
+.move-up-button:disabled, .move-down-button:disabled {
+  background-color: #e0e0e0;  /* Lighter grey when disabled */
+  cursor: not-allowed;  /* Disable pointer cursor */
+}
+
+/* Specific styles for move-up-button */
+.move-up-button {
+  color: green;  /* Green color for 'move up' arrow */
+}
+
+.move-up-button:disabled {
+  opacity: 0.5;  /* Fade the 'move-up' button when disabled */
+}
+
+/* Specific styles for move-down-button */
+.move-down-button {
+  color: red;  /* Red color for 'move down' arrow */
+}
+
+.move-down-button:disabled {
+  opacity: 0.5;  /* Fade the 'move-down' button when disabled */
+}

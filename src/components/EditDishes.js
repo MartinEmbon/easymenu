@@ -14,17 +14,34 @@ const EditDishes = () => {
     const { email } = useOutletContext();        // ✅ get email from context
     const { clienteId } = useParams();           // ✅ get clienteId from URL params
     const [searchTerm, setSearchTerm] = useState('');
+    const [moving, setMoving] = useState(false);
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            if (!email) return;
-            const res = await axios.get("https://list-dishes-336444799661.us-central1.run.app", {
-                params: { clienteId }
-            });
-            setCategories(res.data.categories || []);
-        };
+    // useEffect(() => {
+    //     const fetchCategories = async () => {
+    //         if (!email) return;
+    //         const res = await axios.get("https://list-dishes-336444799661.us-central1.run.app", {
+    //             params: { clienteId }
+    //         });
+    //         setCategories(res.data.categories || []);
+    //     };
+    //     fetchCategories();
+    // }, [email, clienteId]);
+
+    const fetchCategories = async () => {
+        if (!email) return;
+        const res = await axios.get("https://list-dishes-336444799661.us-central1.run.app", {
+          params: { clienteId }
+        });
+        setCategories(res.data.categories || []);
+      };
+      
+      // call it on mount
+      useEffect(() => {
         fetchCategories();
-    }, [email, clienteId]);
+      }, [email, clienteId]);
+      
+
+
 
     // Upload image and get the public URL
     const uploadImageToGCS = async (file) => {
@@ -159,7 +176,121 @@ const EditDishes = () => {
         }
     };
 
-
+    // const handleMoveUp = async (catIndex, itemIndex) => {
+    //     const item = categories[catIndex].items[itemIndex];
+      
+    //     // Prevent moving if it's already at the top
+    //     if (itemIndex === 0) return;
+      
+    //     try {
+    //       const response = await axios.post('https://reorder-dishes-336444799661.us-central1.run.app', {
+    //         clienteId,
+    //         categoryName: categories[catIndex].name,
+    //         itemId: item.id,
+    //         direction: 'up'
+    //       });
+      
+    //       console.log(response.data.message);
+    //       // Optionally, update local state to reflect the new order immediately
+    //       const updatedCategories = [...categories];
+    //       updatedCategories[catIndex].items.splice(itemIndex, 1);
+    //       updatedCategories[catIndex].items.splice(itemIndex - 1, 0, item);
+    //       setCategories(updatedCategories);  // Update the state with the new order
+    //     } catch (error) {
+    //       console.error("Error moving dish up:", error);
+    //     }
+    //   };
+      
+    //   const handleMoveDown = async (catIndex, itemIndex) => {
+    //     const item = categories[catIndex].items[itemIndex];
+      
+    //     // Prevent moving if it's already at the bottom
+    //     if (itemIndex === categories[catIndex].items.length - 1) return;
+      
+    //     try {
+    //       const response = await axios.post('https://reorder-dishes-336444799661.us-central1.run.app', {
+    //         clienteId,
+    //         categoryName: categories[catIndex].name,
+    //         itemId: item.id,
+    //         direction: 'down'
+    //       });
+      
+    //       console.log(response.data.message);
+    //       // Optionally, update local state to reflect the new order immediately
+    //       const updatedCategories = [...categories];
+    //       updatedCategories[catIndex].items.splice(itemIndex, 1);
+    //       updatedCategories[catIndex].items.splice(itemIndex + 1, 0, item);
+    //       setCategories(updatedCategories);  // Update the state with the new order
+    //     } catch (error) {
+    //       console.error("Error moving dish down:", error);
+    //     }
+    //   };
+    // const handleMoveUp = async (catIndex, itemIndex) => {
+    //     const item = categories[catIndex].items[itemIndex];
+      
+    //     if (itemIndex === 0) return;
+      
+    //     try {
+    //       const response = await axios.post('https://reorder-dishes-336444799661.us-central1.run.app', {
+    //         clienteId,
+    //         categoryName: categories[catIndex].name,
+    //         itemId: item.id,
+    //         direction: 'up'
+    //       });
+      
+    //       console.log(response.data.message);
+          
+    //       // Instead of updating manually, reload categories from server
+    //       await fetchCategories(); 
+      
+    //     } catch (error) {
+    //       console.error("Error moving dish up:", error.response?.data || error.message);
+    //     }
+    //   };
+      
+    //   const handleMoveDown = async (catIndex, itemIndex) => {
+    //     const item = categories[catIndex].items[itemIndex];
+      
+    //     if (itemIndex === categories[catIndex].items.length - 1) return;
+      
+    //     try {
+    //       const response = await axios.post('https://reorder-dishes-336444799661.us-central1.run.app', {
+    //         clienteId,
+    //         categoryName: categories[catIndex].name,
+    //         itemId: item.id,
+    //         direction: 'down'
+    //       });
+      
+    //       console.log(response.data.message);
+          
+    //       // Instead of updating manually, reload categories from server
+    //       await fetchCategories(); 
+      
+    //     } catch (error) {
+    //       console.error("Error moving dish down:", error.response?.data || error.message);
+    //     }
+    //   };
+    const handleMove = async (itemId, direction, categoryName) => {
+        if (moving) return; // prevent multiple moves
+      
+        try {
+          setMoving(true);
+          const response = await axios.post('https://reorder-dishes-336444799661.us-central1.run.app', {
+            clienteId,
+            categoryName,
+            itemId,
+            direction
+          });
+      
+          console.log(response.data.message);
+          await fetchCategories(); // refresh updated order
+        } catch (error) {
+          console.error("Error moving dish:", error.response?.data || error.message);
+        } finally {
+          setMoving(false);
+        }
+      };
+      
     return (
         <div className="dish-form-container">
           <h2 className="form-title">Editar / Eliminar Platos</h2>
@@ -175,6 +306,23 @@ const EditDishes = () => {
                 )
                 .map((item, itemIndex) => (
                   <div key={itemIndex} className="item-form">
+
+                    {/* Arrow buttons */}
+              <div className="arrow-buttons">
+                {/* <button
+                  type="button"
+                  onClick={() => handleMove(item.id, 'up', category.name)}
+                  disabled={itemIndex === 0} // Disable if already at the top
+                  className="move-up-button"
+                >
+                  ↑
+                </button> */}
+              <button className="move-up-button" disabled={moving} onClick={() => handleMove(item.id, 'up', categories[catIndex].name)}>Subir</button>
+<button className="move-down-button" disabled={moving} onClick={() => handleMove(item.id, 'down', categories[catIndex].name)}>Bajar</button>
+
+              </div>
+
+
                     <label className="image-label">
                       <img
                         src={item.image}
