@@ -41,6 +41,12 @@ const CreateCategory = () => {
     fetchCategories();
   }, [email]);
 
+  // Function to handle the icon click
+  const handleIconClick = (icon) => {
+    setNewCategoryName(prev => prev + icon);
+  };
+
+
   // Handle creating a new category   
   const handleCreateCategory = async () => {
     if (!email || !newCategoryName) return;
@@ -173,24 +179,39 @@ const CreateCategory = () => {
 
 <div className="icon-helper">
   <p style={{ fontSize: "0.9rem", marginTop: "0.5rem" }}>
-  Estos íconos le dan vida a tus categorías. Copiá el que más te guste y sumalo al nombre.  </p>
+  Estos íconos le dan vida a tus categorías. Clicá en el que más te guste y sumalo al nombre de tu categoría.  </p>
   <div className="icon-samples" style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
-  <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }}>🍺</span>
 
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fff3cd", padding: "4px 8px", borderRadius: "8px" }}>🍽</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }}>🥗</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }}>🍷</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }}>🍨</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#e0e0e0", padding: "4px 8px", borderRadius: "8px" }}>☕</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fef9c3", padding: "4px 8px", borderRadius: "8px" }}>🥕</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fcd5ce", padding: "4px 8px", borderRadius: "8px" }}>🍞</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fca5a5", padding: "4px 8px", borderRadius: "8px" }}>🔥</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#bae6fd", padding: "4px 8px", borderRadius: "8px" }}>🐟</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fef3c7", padding: "4px 8px", borderRadius: "8px" }}>🍗</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#ddd6fe", padding: "4px 8px", borderRadius: "8px" }}>🧀</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }}>🍕</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#fbcfe8", padding: "4px 8px", borderRadius: "8px" }}>🍔</span>
-    <span style={{ fontSize: "1.5rem", backgroundColor: "#e0c3fc", padding: "4px 8px", borderRadius: "8px" }}>🎂</span>
+  <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍺')}>🍺</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fff3cd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍽')}>🍽</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥗')}>🥗</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍷')}>🍷</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍨')}>🍨</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#e0e0e0", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('☕')}>☕</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fef9c3", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥕')}>🥕</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fcd5ce", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍞')}>🍞</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fca5a5", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🔥')}>🔥</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#bae6fd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🐟')}>🐟</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fef3c7", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍗')}>🍗</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#ddd6fe", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🧀')}>🧀</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍕')}>🍕</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fbcfe8", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍔')}>🍔</span>
+
+<span style={{ fontSize: "1.5rem", backgroundColor: "#e0c3fc", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🎂')}>🎂</span>
+
   </div>
 </div>
 

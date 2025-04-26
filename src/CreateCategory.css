@@ -186,7 +186,7 @@
   
   .icon-samples span {
     font-size: 1.6rem;
-    cursor: copy;
+    cursor: pointer;
     transition: transform 0.2s;
   }
   
