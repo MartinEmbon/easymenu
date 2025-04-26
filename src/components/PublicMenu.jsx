@@ -62,11 +62,11 @@ const PublicMenu = () => {
   );
   const regularCategories = menuItems.filter(cat => !cat.isSuggestion);
   const suggestedCategories = menuItems.filter(cat => cat.isSuggestion);
-  console.log(generalInfo.profilePictureUrl)
+  console.log(generalInfo)
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <meta property="og:title" content="Mirá la carta de nuestro restaurante" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={window.location.href} />
@@ -76,7 +76,7 @@ const PublicMenu = () => {
         )}
         <meta property="og:image:alt" content="Logo del restaurante" />
         <meta property="og:image:type" content="image/png" />
-      </Helmet>
+      </Helmet> */}
 
       <Header />
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
