@@ -189,6 +189,8 @@ const CreateCategory = () => {
 <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥗')}>🥗</span>
 
 <span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍷')}>🍷</span>
+<span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍷')}>🥃</span>
+
 
 <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍨')}>🍨</span>
 
