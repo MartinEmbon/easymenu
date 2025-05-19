@@ -29,7 +29,9 @@ const CreateCategory = () => {
         // When fetching categories
         const categories = (res.data.categories || []).map(cat => ({
           name: typeof cat === 'string' ? cat : cat.name,
-          suggestion: cat.suggestion || false
+          suggestion: cat.suggestion || false,
+          visible: cat.visible !== false  // Default to true if not defined
+
         }));
 
 
@@ -55,7 +57,7 @@ const CreateCategory = () => {
       await axios.post('https://register-dishes-336444799661.us-central1.run.app', {
         clienteId,
         // category: { name: newCategoryName, items: [] }       
-        category: { name: newCategoryName, items: [], suggestion: isSuggestion }
+        category: { name: newCategoryName, items: [], suggestion: isSuggestion, visible: true }
 
       });
       setCategories(prev => [...prev, { name: newCategoryName }]);
@@ -177,47 +179,30 @@ const CreateCategory = () => {
           onChange={e => setNewCategoryName(e.target.value)}
         />
 
-<div className="icon-helper">
-  <p style={{ fontSize: "0.9rem", marginTop: "0.5rem" }}>
-  Estos íconos le dan vida a tus categorías. Clicá en el que más te guste y sumalo al nombre de tu categoría.  </p>
-  <div className="icon-samples" style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
+        <div className="icon-helper">
+          <p style={{ fontSize: "0.9rem", marginTop: "0.5rem" }}>
+            Estos íconos le dan vida a tus categorías. Clicá en el que más te guste y sumalo al nombre de tu categoría.  </p>
+          <div className="icon-samples" style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "8px" }}>
 
-  <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍺')}>🍺</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍺')}>🍺</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fff3cd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍽 ')}>🍽</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥗 ')}>🥗</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍷 ')}>🍷</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥃 ')}>🥃</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍨 ')}>🍨</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#e0e0e0", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('☕ ')}>☕</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fef9c3", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥕 ')}>🥕</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fcd5ce", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍞 ')}>🍞</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fca5a5", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🔥 ')}>🔥</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#bae6fd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🐟 ')}>🐟</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fef3c7", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍗 ')}>🍗</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#ddd6fe", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🧀 ')}>🧀</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍕 ')}>🍕</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#fbcfe8", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍔 ')}>🍔</span>
+            <span style={{ fontSize: "1.5rem", backgroundColor: "#e0c3fc", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🎂 ')}>🎂</span>
 
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fff3cd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍽')}>🍽</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥗')}>🥗</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍷')}>🍷</span>
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fde2e4", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥃')}>🥃</span>
-
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#d0f4de", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍨')}>🍨</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#e0e0e0", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('☕')}>☕</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fef9c3", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🥕')}>🥕</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fcd5ce", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍞')}>🍞</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fca5a5", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🔥')}>🔥</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#bae6fd", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🐟')}>🐟</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fef3c7", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍗')}>🍗</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#ddd6fe", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🧀')}>🧀</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fde68a", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍕')}>🍕</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#fbcfe8", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🍔')}>🍔</span>
-
-<span style={{ fontSize: "1.5rem", backgroundColor: "#e0c3fc", padding: "4px 8px", borderRadius: "8px" }} onClick={() => handleIconClick('🎂')}>🎂</span>
-
-  </div>
-</div>
-
-
+          </div>
+        </div>
 
 
         <button
@@ -246,42 +231,83 @@ const CreateCategory = () => {
             list={categories}
             setList={handleCategoryOrderChange}
           >
-            {categories.map(({ name, suggestion }) => (
-              <li key={name} data-id={name} className="category-item">
-                <input
-                  type="checkbox"
-                  checked={suggestion}
-                  onChange={async (e) => {
-                    const updatedCategories = categories.map(cat =>
-                      cat.name === name ? { ...cat, suggestion: e.target.checked } : cat
-                    );
-                    setCategories(updatedCategories);
+        {categories.map((category, index) => {
+  const { name, suggestion, visible } = category;
+  return (
+    <li key={name} data-id={name} className="category-item">
+      <input
+        type="checkbox"
+        checked={suggestion}
+        onChange={async (e) => {
+          const updatedCategories = categories.map(cat =>
+            cat.name === name ? { ...cat, suggestion: e.target.checked } : cat
+          );
+          setCategories(updatedCategories);
 
-                    try {
-                      await axios.put('https://update-category-336444799661.us-central1.run.app', {
-                        clienteId,
-                        oldCategoryName: name,
-                        newCategoryName: name, // name remains the same
-                        suggestion: e.target.checked,
-                      });
-                      setMessage(`Categoría "${name}" actualizada ✅`);
-                      setTimeout(() => setMessage(''), 3000);
-                    } catch (err) {
-                      console.error(err);
-                      setMessage('Error al actualizar la sugerencia');
-                      setTimeout(() => setMessage(''), 3000);
-                    }
-                  }}
-                />
-                <span  className="category-name">{name}</span>
-                {suggestion && <span className="category-suggestion">🌟 destacada</span>}
-                <div className="category-actions">
-                <button onClick={() => handleEditCategory({ name })} className="edit-btn">Editar</button>
-                <button onClick={() => handleDeleteCategory(name)} className="delete-btn">Eliminar</button>
-                </div>
-              </li>
-              
-            ))}
+          try {
+            await axios.put('https://update-category-336444799661.us-central1.run.app', {
+              clienteId,
+              oldCategoryName: name,
+              newCategoryName: name,
+              suggestion: e.target.checked,
+            });
+            setMessage(`Categoría "${name}" actualizada ✅`);
+            setTimeout(() => setMessage(''), 3000);
+          } catch (err) {
+            console.error(err);
+            setMessage('Error al actualizar la sugerencia');
+            setTimeout(() => setMessage(''), 3000);
+          }
+        }}
+      />
+      <span className="category-name">{name}</span>
+
+      {/* Toggle visibility icon */}
+      {/* <span
+        style={{ marginLeft: '10px', cursor: 'pointer' }}
+        title={visible ? "Ocultar" : "Mostrar"}
+        onClick={() => {
+          const updatedCategories = categories.map((cat, i) =>
+            i === index ? { ...cat, visible: !cat.visible } : cat
+          );
+          setCategories(updatedCategories);
+
+          axios.put('https://update-visibility-category-336444799661.us-central1.run.app', {
+            clienteId,
+            categoryName: name,
+            visible: !visible
+          }).catch(err => console.error("Visibility update failed", err));
+        }}
+      >
+        {visible ? '👁️' : '🙈'}
+      </span> */}
+
+<i
+  className={`fas ${visible ? 'fa-eye' : 'fa-eye-slash'}`}
+  style={{ marginLeft: '10px', cursor: 'pointer' }}
+  title={visible ? "Ocultar" : "Mostrar"}
+  onClick={() => {
+    const updatedCategories = categories.map((cat, i) =>
+      i === index ? { ...cat, visible: !cat.visible } : cat
+    );
+    setCategories(updatedCategories);
+
+    axios.put('https://update-visibility-category-336444799661.us-central1.run.app', {
+      clienteId,
+      categoryName: name,
+      visible: !visible
+    }).catch(err => console.error("Visibility update failed", err));
+  }}
+></i>
+
+      {suggestion && <span className="category-suggestion">🌟 destacada</span>}
+      <div className="category-actions">
+        <button onClick={() => handleEditCategory({ name })} className="edit-btn">Editar</button>
+        <button onClick={() => handleDeleteCategory(name)} className="delete-btn">Eliminar</button>
+      </div>
+    </li>
+  );
+})}
 
           </ReactSortable>
         ) : (

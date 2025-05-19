@@ -102,7 +102,7 @@ const PublicMenu = () => {
       <div className="menu-container">
         <h1 className="menu-title">Carta de Platos</h1>
         {menuItems
-          .filter(category => !category.suggestion)
+          .filter(category => !category.suggestion && category.visible)
           .map((category, i) => {
             const key = category.id || `cat-${i}`; // fallback
             return (
@@ -118,7 +118,10 @@ const PublicMenu = () => {
                 </button>
 
                 <div className={`category-dishes ${expandedCategories[key] ? 'expanded' : ''}`}>
-                  {category.items.map((item, j) => (
+                  {category.items
+                                        .filter(item => item.visible !== false) // ← this hides dishes with visible: false or undefined
+
+                  .map((item, j) => (
                     <div key={j} className="menu-item">
                       {item.image && <img src={item.image} alt={item.name || 'Imagen del plato'} />}
                       <div className="item-info">
@@ -138,7 +141,7 @@ const PublicMenu = () => {
         <div className="menu-container">
           <h1 className="menu-title">Especiales</h1>
           {menuItems
-            .filter(category => category.suggestion) // Suggestion categories
+            .filter(category => category.suggestion && category.visible) // Suggestion categories
             .map((category, i) => {
               const key = category.id || `suggestion-${i}`; // Usamos ID si existe, si no, un fallback único
               return (
@@ -154,7 +157,10 @@ const PublicMenu = () => {
                   </button>
 
                   <div className={`category-dishes ${expandedCategories[key] ? 'expanded' : ''}`}>
-                    {category.items.map((item, j) => (
+                    {category.items
+                      .filter(item => item.visible !== false) // ← this hides dishes with visible: false or undefined
+
+                    .map((item, j) => (
                       <div key={j} className="menu-item">
                         {item.image && <img src={item.image} alt={item.name || 'Imagen del plato'} />}
                         <div className="item-info">

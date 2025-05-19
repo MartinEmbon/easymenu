@@ -5,7 +5,7 @@ import "../AddDishes.css"
 const AddDishes = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [items, setItems] = useState([{ name: '', description: '', price: '', imageFile: null, imageUrl: '' }]);
+  const [items, setItems] = useState([{ name: '', description: '', price: '', imageFile: null, imageUrl: '', visible: true }]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const { email, clienteId } = useOutletContext();
@@ -38,7 +38,7 @@ const AddDishes = () => {
   };
 
   const addItem = () => {
-    setItems([...items, { name: '', description: '', price: '', imageFile: null, imageUrl: '' }]);
+    setItems([...items, { name: '', description: '', price: '', imageFile: null, imageUrl: '',visible: true }]);
   };
 
   const removeItem = (index) => {
@@ -62,9 +62,9 @@ const AddDishes = () => {
 
           if (item.imageFile) {
             const publicUrl = await uploadImageToGCS(item.imageFile);
-            return { ...item, id: uniqueId,image: publicUrl, price: parseInt(item.price) };
+            return { ...item, id: uniqueId,image: publicUrl, price: parseInt(item.price), visible: item.visible };
           }
-          return { ...item, id: uniqueId, price: parseInt(item.price) };
+          return { ...item, id: uniqueId, price: parseInt(item.price), visible: item.visible };
         })
       );
   
@@ -77,7 +77,7 @@ const AddDishes = () => {
       });
   
       setMessage('Producto creado con éxito ✅');
-      setItems([{ name: '', description: '', price: '', imageFile: null, image: '' }]);
+      setItems([{ name: '', description: '', price: '', imageFile: null, image: '', visible: true }]);
     } catch (error) {
       console.error(error);
       setMessage('Error al guardar 😞');
