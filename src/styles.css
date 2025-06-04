@@ -313,7 +313,7 @@ font-size: 17px;
   }
   
   .category-dishes.expanded {
-    max-height: 1000px;
+    max-height: 2000px !important;
     padding: 0.5rem 1rem 1rem;
   }
 
